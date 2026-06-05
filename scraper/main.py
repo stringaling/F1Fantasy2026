@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 import os
+import urllib.parse
 import json
 import time
 import random
@@ -22,30 +24,27 @@ OUTPUT_FILE = os.path.join(OUTPUT_DIR, "data.json")
 
 # F1 Race Names mapping (2026 Schedule placeholder / standard names)
 RACE_NAMES = {
-    1: "Bahrain GP",
-    2: "Saudi Arabian GP",
-    3: "Australian GP",
-    4: "Azerbaijan GP",
-    5: "Miami GP",
-    6: "Emola GP",
-    7: "Monaco GP",
-    8: "Spanish GP",
-    9: "Canadian GP",
-    10: "Austrian GP",
-    11: "British GP",
-    12: "Hungarian GP",
-    13: "Belgian GP",
-    14: "Dutch GP",
-    15: "Italian GP",
-    16: "Singapore GP",
-    17: "Japanese GP",
-    18: "Qatar GP",
-    19: "United States GP",
-    20: "Mexico City GP",
-    21: "São Paulo GP",
-    22: "Las Vegas GP",
-    23: "Qatar GP",
-    24: "Abu Dhabi GP"
+    1: "Australian GP",
+    2: "Chinese GP",
+    3: "Japanese GP",
+    4: "Miami GP",
+    5: "Canadian GP",
+    6: "Monaco GP",
+    7: "Spanish GP",
+    8: "Austrian GP",
+    9: "British GP",
+    10: "Belgian GP",
+    11: "Hungarian GP",
+    12: "Dutch GP",
+    13: "Italian GP",
+    14: "Azerbaijan GP",
+    15: "Singapore GP",
+    16: "United States GP",
+    17: "Mexico City GP",
+    18: "São Paulo GP",
+    19: "Las Vegas GP",
+    20: "Qatar GP",
+    21: "Abu Dhabi GP"
 }
 
 def generate_mock_data():
@@ -109,7 +108,7 @@ def generate_mock_data():
     random.seed(42)
     
     # Standard chips list
-    chips_list = ["wildcard", "limitless", "autopilot", "final_fix", "no_negative", "extra_streak"]
+    chips_list = ["wildcard", "limitless", "autopilot", "final_fix", "no_negative", "extra_drs"]
     
     for i, p_info in enumerate(players_info):
         guid = f"mock-user-{i+1}"
@@ -131,6 +130,7 @@ def generate_mock_data():
                 race_used = random.randint(1, num_races)
                 chip_usage[race_used] = chip
                 used_chips.append({"chip": chip, "race_id": race_used})
+
         
         for race_id in range(1, num_races + 1):
             # Simulate slight changes in budget/value from race to race
@@ -277,7 +277,7 @@ def scrape_f1_data():
             raise ValueError(f"Invalid API response: {res_json.get('Meta')}")
             
         league_info = res_json["Data"]["Value"]["leagueInfo"]
-        league_name = league_info["leagueName"]
+        league_name = urllib.parse.unquote(league_info["leagueName"])
         members = res_json["Data"]["Value"]["memRank"]
         
         print(f"🏆 Found league: '{league_name}' with {len(members)} players.")
@@ -289,6 +289,8 @@ def scrape_f1_data():
     # 2. Determine completed race IDs (Game Days)
     # Fetch from gameplay days endpoint to see completed races
     gamedays_url = f"{F1_BASE_URL}/services/user/gameplay/{USER_GUID}/getusergamedaysv1/1"
+    gameday_status = {}
+    user_team_no_map = {}
     try:
         resp = session.get(gamedays_url)
         resp.raise_for_status()
@@ -296,8 +298,18 @@ def scrape_f1_data():
         
         # Normally data is a list. Let's find max race ID from mddetails keys
         if isinstance(gamedays_data, list) and len(gamedays_data) > 0:
-            races_occurred = [int(k) for k in gamedays_data[0]["mddetails"].keys()]
+            mddetails = gamedays_data[0]["mddetails"]
+            races_occurred = [int(k) for k in mddetails.keys()]
             max_race_id = max(races_occurred)
+            for k, v in mddetails.items():
+                gameday_status[int(k)] = v.get("mds", 3)
+            
+            # Map team name to teamno for the token owner (lowercase, unquoted)
+            for t in gamedays_data:
+                t_name = urllib.parse.unquote(t.get("teamname", ""))
+                t_no = t.get("teamno")
+                if t_name and t_no is not None:
+                    user_team_no_map[t_name.lower()] = int(t_no)
         else:
             max_race_id = 1
         
@@ -311,9 +323,11 @@ def scrape_f1_data():
             feed_resp = requests.head(feed_url)
             if feed_resp.status_code == 200:
                 max_race_id = r_id
+                gameday_status[r_id] = 3  # Assume completed
             else:
                 break
         print(f"🏎️ Detected {max_race_id} completed races via driver feed pings.")
+
         
     if max_race_id == 0:
         print("❌ Could not determine any completed races. Cannot scrape.")
@@ -338,35 +352,27 @@ def scrape_f1_data():
     # 4. Fetch the team details for each league member across all completed races
     players_data = []
     
-    # We will construct chip usage maps
-    # F1 Fantasy API team items have keys like iswildcardtaken, islimitlesstaken etc.
-    # We will map these keys to the friendly names of chips
-    chip_flags = {
-        "iswildcardtaken": "wildcard",
-        "islimitlesstaken": "limitless",
-        "isautopilottaken": "autopilot",
-        "isfinalfixtaken": "final_fix",
-        "isnonigativetaken": "no_negative",
-        "isextradrstaken": "extra_streak",
-        "isboostertaken": "3x_booster" # 3X captain
-    }
-    
     for member in members:
         m_guid = member["guid"]
         m_team_id = member["teamId"]
-        m_team_name = member["teamName"]
-        m_user_name = member["userName"]
+        m_team_name = urllib.parse.unquote(member["teamName"])
+        m_user_name = urllib.parse.unquote(member["userName"])
         
         print(f"👤 Scraping player: {m_user_name} ({m_team_name})")
         
         history = []
         chips_used = []
-        cumulative_points = 0
+        cumulative_points = 0.0
         
         # We loop from race 1 to max_race_id
         for r_id in range(1, max_race_id + 1):
-            # Endpoint: /services/user/gameplay/{entrant_guid}/getteam/1/1/{race_id}/1
-            team_url = f"{F1_BASE_URL}/services/user/gameplay/{m_guid}/getteam/1/1/{r_id}/1"
+            # Endpoint routing: Use opponentteam for everyone (including token owner using their full league GUID)
+            if m_guid.startswith(USER_GUID):
+                m_team_no = user_team_no_map.get(m_team_name.lower(), 1)
+            else:
+                m_team_no = 1
+            
+            team_url = f"{F1_BASE_URL}/services/user/opponentteam/opponentgamedayplayerteamget/1/{m_guid}/{m_team_no}/{r_id}/1"
             
             try:
                 # Add delay to avoid aggressive rate limiting
@@ -381,73 +387,87 @@ def scrape_f1_data():
                     continue
                     
                 user_team = team_payload["userTeam"][0]
-                team_info = user_team["team_info"]
+                team_info = user_team.get("team_info")
                 
-                # Extract budget and value details
-                # teambal is balance left in bank. teamval is value of roster
-                # total budget = teamval + teambal
-                teambal = user_team.get("teambal", 0.0)
-                teamval = user_team.get("teamval", 0.0)
+                # Extract budget and value details with defensive fallbacks
+                teambal = user_team.get("teambal")
+                if teambal is None:
+                    teambal = team_info.get("teamBal") if team_info else 0.0
+                
+                teamval = user_team.get("teamval")
                 if teamval is None:
-                    teamval = team_info.get("teamVal", 100.0)
+                    teamval = team_info.get("teamVal") if team_info else 100.0
+                
+                teambal = float(teambal) if teambal is not None else 0.0
+                teamval = float(teamval) if teamval is not None else 100.0
                 total_budget = round(teamval + teambal, 1)
                 
-                # Check active chips in this race
+                # Check active chips in this race using direct takengd fields
                 active_chip = None
-                for flag, chip_name in chip_flags.items():
-                    # If this chip was taken at this game day
-                    # F1 Fantasy returns 1 if active, or matching game day ID
-                    val = user_team.get(flag, 0)
-                    if val == 1 or val == r_id:
-                        active_chip = chip_name
-                        # Add to chips_used list if not already present
-                        if not any(c["chip"] == chip_name for c in chips_used):
-                            chips_used.append({"chip": chip_name, "race_id": r_id})
+                if user_team.get("wildcardtakengd") == r_id or user_team.get("iswildcard") == 1:
+                    active_chip = "wildcard"
+                elif user_team.get("limitlesstakengd") == r_id:
+                    active_chip = "limitless"
+                elif user_team.get("autopilottakengd") == r_id:
+                    active_chip = "autopilot"
+                elif user_team.get("finalfixtakengd") == r_id:
+                    active_chip = "final_fix"
+                elif user_team.get("nonigativetakengd") == r_id:
+                    active_chip = "no_negative"
+                elif user_team.get("extradrstakengd") == r_id:
+                    active_chip = "extra_drs"
+                
+                if active_chip and not any(c["chip"] == active_chip for c in chips_used):
+                    chips_used.append({"chip": active_chip, "race_id": r_id})
                 
                 # Roster mapping
                 drivers_list = []
                 constructors_list = []
-                feed_map = race_feeds.get(r_id, {})
                 
-                # playerid list contains the players in the roster
-                for p_item in user_team.get("playerid", []):
-                    p_id = p_item["id"]
-                    is_captain = bool(p_item.get("iscaptain", 0))
-                    is_triple_captain = bool(p_item.get("ismgcaptain", 0)) # Mega Captain
-                    
-                    # Fetch detailed stats from the feed map
-                    feed_detail = feed_map.get(p_id, {})
-                    p_name = feed_detail.get("FUllName", f"Player {p_id}")
-                    p_tla = feed_detail.get("DriverTLA", "")
-                    p_team = feed_detail.get("TeamName", "")
-                    p_price = feed_detail.get("Value", 0.0)
-                    p_points = float(feed_detail.get("GamedayPoints", 0.0)) if feed_detail.get("GamedayPoints") else 0.0
-                    p_pos = feed_detail.get("PositionName", "DRIVER")
-                    
-                    # Multipliers
-                    if is_captain:
-                        p_points *= 2
-                    elif is_triple_captain:
-                        p_points *= 3
+                # Hide team roster details if the race has not locked yet for privacy (only for opponents)
+                is_unlocked_opponent = (not m_guid.startswith(USER_GUID) and gameday_status.get(r_id, 3) == 0)
+                
+                if not is_unlocked_opponent:
+                    feed_map = race_feeds.get(r_id, {})
+                    # playerid list contains the players in the roster
+                    for p_item in user_team.get("playerid") or []:
+                        p_id = p_item["id"]
+                        is_captain = bool(p_item.get("iscaptain", 0))
+                        is_triple_captain = bool(p_item.get("ismgcaptain", 0)) # Mega Captain
                         
-                    if p_pos == "DRIVER":
-                        drivers_list.append({
-                            "id": p_id,
-                            "name": p_name,
-                            "tla": p_tla,
-                            "team": p_team,
-                            "price_at_race": p_price,
-                            "points": p_points,
-                            "is_captain": is_captain,
-                            "is_triple_captain": is_triple_captain
-                        })
-                    else:
-                        constructors_list.append({
-                            "id": p_id,
-                            "name": p_name,
-                            "price_at_race": p_price,
-                            "points": p_points
-                        })
+                        # Fetch detailed stats from the feed map
+                        feed_detail = feed_map.get(p_id, {})
+                        p_name = urllib.parse.unquote(feed_detail.get("FUllName", f"Player {p_id}"))
+                        p_tla = feed_detail.get("DriverTLA", "")
+                        p_team = urllib.parse.unquote(feed_detail.get("TeamName", ""))
+                        p_price = feed_detail.get("Value", 0.0)
+                        p_points = float(feed_detail.get("GamedayPoints", 0.0)) if feed_detail.get("GamedayPoints") else 0.0
+                        p_pos = feed_detail.get("PositionName", "DRIVER")
+                        
+                        # Multipliers
+                        if is_captain:
+                            p_points *= 2
+                        elif is_triple_captain:
+                            p_points *= 3
+                            
+                        if p_pos == "DRIVER":
+                            drivers_list.append({
+                                "id": p_id,
+                                "name": p_name,
+                                "tla": p_tla,
+                                "team": p_team,
+                                "price_at_race": p_price,
+                                "points": p_points,
+                                "is_captain": is_captain,
+                                "is_triple_captain": is_triple_captain
+                            })
+                        else:
+                            constructors_list.append({
+                                "id": p_id,
+                                "name": p_name,
+                                "price_at_race": p_price,
+                                "points": p_points
+                            })
                 
                 points_gained = user_team.get("gdpoints")
                 if points_gained is None:
@@ -456,7 +476,7 @@ def scrape_f1_data():
                 else:
                     points_gained = float(points_gained)
                     
-                cumulative_points = float(user_team.get("ovpoints", cumulative_points))
+                cumulative_points += points_gained
                 
                 history.append({
                     "race_id": r_id,
@@ -488,6 +508,7 @@ def scrape_f1_data():
             "chips_used": chips_used,
             "history": history
         })
+
         
     # 5. Post-process ranks race-by-race
     for race_idx in range(max_race_id):

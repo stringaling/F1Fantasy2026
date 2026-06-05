@@ -431,12 +431,7 @@ body {
   --chip-color-glow: rgba(56, 161, 105, 0.3);
 }
 
-.chip-badge.extra_streak {
-  --chip-color-bg: var(--color-extra-streak);
-  --chip-color-glow: rgba(214, 158, 46, 0.3);
-}
-
-.chip-badge.booster3x {
+.chip-badge.extra_drs {
   --chip-color-bg: var(--color-3x-booster);
   --chip-color-glow: rgba(229, 62, 62, 0.3);
 }

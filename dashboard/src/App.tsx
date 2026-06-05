@@ -9,6 +9,24 @@ import {
 } from 'lucide-react';
 import type { F1FantasyData, Player, RaceHistory } from './types';
 
+const chipLabels: Record<string, string> = {
+  wildcard: 'WIL',
+  limitless: 'LIM',
+  autopilot: 'AUT',
+  final_fix: 'FIX',
+  no_negative: 'NEG',
+  extra_drs: '3X'
+};
+
+const chipNames: Record<string, string> = {
+  wildcard: 'Wildcard',
+  limitless: 'Limitless',
+  autopilot: 'Autopilot',
+  final_fix: 'Final Fix',
+  no_negative: 'No Negative',
+  extra_drs: 'Extra DRS (3x)'
+};
+
 function App() {
   const [data, setData] = useState<F1FantasyData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -221,7 +239,7 @@ function App() {
 
                   {/* Chips badges */}
                   <div className="chips-row hide-on-mobile">
-                    {['wildcard', 'limitless', 'autopilot', 'final_fix', 'no_negative', 'extra_streak', '3x_booster'].map(chip => {
+                    {['wildcard', 'limitless', 'autopilot', 'final_fix', 'no_negative', 'extra_drs'].map(chip => {
                       const isUsed = player.chips_used.some(c => c.chip === chip);
                       return (
                         <span 
@@ -229,7 +247,7 @@ function App() {
                           className={`chip-badge ${isUsed ? 'used' : ''} ${chip}`}
                           title={`${chip.replace('_', ' ')}: ${isUsed ? 'Used' : 'Available'}`}
                         >
-                          {chip.split('_')[0].substring(0, 3)}
+                          {chipLabels[chip] || chip.substring(0, 3)}
                         </span>
                       );
                     })}
@@ -393,7 +411,7 @@ function App() {
               <div className="glass-card">
                 <h3 className="modal-section-title" style={{ marginTop: 0 }}>Chips Summary</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  {['wildcard', 'limitless', 'autopilot', 'final_fix', 'no_negative', 'extra_streak', '3x_booster'].map(chip => {
+                  {['wildcard', 'limitless', 'autopilot', 'final_fix', 'no_negative', 'extra_drs'].map(chip => {
                     const usage = selectedPlayer.chips_used.find(c => c.chip === chip);
                     const isUsed = !!usage;
                     const usedRace = usage ? selectedPlayer.history.find(h => h.race_id === usage.race_id) : null;
@@ -413,7 +431,7 @@ function App() {
                       >
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                           <span className={`chip-badge ${isUsed ? 'used' : ''} ${chip}`} style={{ fontSize: '0.7rem' }}>
-                            {chip.replace('_', ' ')}
+                            {chipNames[chip] || chip.replace('_', ' ')}
                           </span>
                         </div>
                         <span style={{ fontSize: '0.85rem', color: isUsed ? '#fff' : '#718096' }}>
@@ -453,53 +471,68 @@ function App() {
                   )}
                 </div>
                 
-                {/* Roster Grid */}
-                <div className="roster-grid">
-                  {/* Drivers */}
-                  {activeHistory.team.drivers.map(drv => (
-                    <div key={drv.id} className="roster-card driver-card">
-                      {drv.is_captain && <span className="card-captain-badge">CAPTAIN</span>}
-                      {drv.is_triple_captain && <span className="card-triple-captain-badge">3X CAPTAIN</span>}
-                      
-                      <div className="card-header-row">
-                        <div>
-                          <div className="roster-item-name">{drv.name}</div>
-                          <div className="roster-item-team">{drv.team}</div>
+                {/* Roster Grid or Hidden Placeholder */}
+                {activeHistory.team.drivers.length === 0 && activeHistory.team.constructors.length === 0 ? (
+                  <div style={{ 
+                    textAlign: 'center', 
+                    padding: '3rem 2rem', 
+                    background: 'rgba(255,255,255,0.01)', 
+                    borderRadius: '12px', 
+                    border: '1px dashed rgba(255,255,255,0.1)', 
+                    color: '#a0aec0',
+                    margin: '1.5rem 0'
+                  }}>
+                    <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>🔒 Roster Selection Unlocked</div>
+                    <p style={{ fontSize: '0.9rem', color: '#718096' }}>This opponent's team roster is hidden for privacy until selection locks at the race start.</p>
+                  </div>
+                ) : (
+                  <div className="roster-grid">
+                    {/* Drivers */}
+                    {activeHistory.team.drivers.map(drv => (
+                      <div key={drv.id} className="roster-card driver-card">
+                        {drv.is_captain && <span className="card-captain-badge">CAPTAIN</span>}
+                        {drv.is_triple_captain && <span className="card-triple-captain-badge">3X CAPTAIN</span>}
+                        
+                        <div className="card-header-row">
+                          <div>
+                            <div className="roster-item-name">{drv.name}</div>
+                            <div className="roster-item-team">{drv.team}</div>
+                          </div>
+                          <span className="driver-tla-badge">{drv.tla}</span>
                         </div>
-                        <span className="driver-tla-badge">{drv.tla}</span>
-                      </div>
-                      
-                      <div className="card-footer-row">
-                        <span className="roster-item-price">${drv.price_at_race.toFixed(1)}M</span>
-                        <div style={{ textAlign: 'right' }}>
-                          <span className="points-label" style={{ fontSize: '0.65rem' }}>GP Points</span>
-                          <div className="roster-item-pts">{drv.points}</div>
+                        
+                        <div className="card-footer-row">
+                          <span className="roster-item-price">${drv.price_at_race.toFixed(1)}M</span>
+                          <div style={{ textAlign: 'right' }}>
+                            <span className="points-label" style={{ fontSize: '0.65rem' }}>GP Points</span>
+                            <div className="roster-item-pts">{drv.points}</div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
 
-                  {/* Constructors */}
-                  {activeHistory.team.constructors.map(c => (
-                    <div key={c.id} className="roster-card constructor-card">
-                      <div className="card-header-row">
-                        <div>
-                          <div className="roster-item-name">{c.name}</div>
-                          <div className="roster-item-team">Constructor</div>
+                    {/* Constructors */}
+                    {activeHistory.team.constructors.map(c => (
+                      <div key={c.id} className="roster-card constructor-card">
+                        <div className="card-header-row">
+                          <div>
+                            <div className="roster-item-name">{c.name}</div>
+                            <div className="roster-item-team">Constructor</div>
+                          </div>
+                          <span className="driver-tla-badge" style={{ background: 'rgba(49, 130, 206, 0.15)', color: '#63b3ed' }}>CSTR</span>
                         </div>
-                        <span className="driver-tla-badge" style={{ background: 'rgba(49, 130, 206, 0.15)', color: '#63b3ed' }}>CSTR</span>
-                      </div>
-                      
-                      <div className="card-footer-row">
-                        <span className="roster-item-price">${c.price_at_race.toFixed(1)}M</span>
-                        <div style={{ textAlign: 'right' }}>
-                          <span className="points-label" style={{ fontSize: '0.65rem' }}>GP Points</span>
-                          <div className="roster-item-pts">{c.points}</div>
+                        
+                        <div className="card-footer-row">
+                          <span className="roster-item-price">${c.price_at_race.toFixed(1)}M</span>
+                          <div style={{ textAlign: 'right' }}>
+                            <span className="points-label" style={{ fontSize: '0.65rem' }}>GP Points</span>
+                            <div className="roster-item-pts">{c.points}</div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </div>
             ) : (
               <p style={{ color: '#718096', fontStyle: 'italic' }}>No roster details loaded for this GP.</p>
