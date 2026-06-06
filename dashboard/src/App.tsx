@@ -483,7 +483,7 @@ function App() {
                     margin: '1.5rem 0'
                   }}>
                     <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>🔒 Roster Selection Unlocked</div>
-                    <p style={{ fontSize: '0.9rem', color: '#718096' }}>This opponent's team roster is hidden for privacy until selection locks at the race start.</p>
+                    <p style={{ fontSize: '0.9rem', color: '#718096' }}>This team roster is hidden for privacy until selection locks at the race start.</p>
                   </div>
                 ) : (
                   <div className="roster-grid">

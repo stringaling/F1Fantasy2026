@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-05T23:18:22Z",
+  "last_updated": "2026-06-05T23:21:59Z",
   "league_name": "Formula 42/51",
   "league_id": "6360509",
   "current_race_id": 6,
@@ -1262,79 +1262,15 @@
         {
           "race_id": 6,
           "race_name": "Monaco GP",
-          "points_gained": 0.0,
+          "points_gained": 0,
           "total_points": 1393.0,
           "rank_in_league": 3,
           "budget": 110.0,
           "team_value": 109.7,
           "active_chip": null,
           "team": {
-            "drivers": [
-              {
-                "id": "11059",
-                "name": "Franco Colapinto",
-                "tla": "COL",
-                "team": "Alpine",
-                "price_at_race": 8.8,
-                "points": 0.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "111",
-                "name": "Nico Hulkenberg",
-                "tla": "HUL",
-                "team": "Audi",
-                "price_at_race": 3.8,
-                "points": 0.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "11161",
-                "name": "Kimi Antonelli",
-                "tla": "ANT",
-                "team": "Mercedes",
-                "price_at_race": 24.7,
-                "points": 0.0,
-                "is_captain": true,
-                "is_triple_captain": false
-              },
-              {
-                "id": "114",
-                "name": "Liam Lawson",
-                "tla": "LAW",
-                "team": "Racing Bulls",
-                "price_at_race": 7.9,
-                "points": 0.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "13",
-                "name": "Valtteri Bottas",
-                "tla": "BOT",
-                "team": "Cadillac",
-                "price_at_race": 4.5,
-                "points": 0.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              }
-            ],
-            "constructors": [
-              {
-                "id": "27",
-                "name": "McLaren",
-                "price_at_race": 29.2,
-                "points": 0.0
-              },
-              {
-                "id": "28",
-                "name": "Mercedes",
-                "price_at_race": 30.8,
-                "points": 0.0
-              }
-            ]
+            "drivers": [],
+            "constructors": []
           }
         }
       ]

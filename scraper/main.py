@@ -424,10 +424,10 @@ def scrape_f1_data():
                 drivers_list = []
                 constructors_list = []
                 
-                # Hide team roster details if the race has not locked yet for privacy (only for opponents)
-                is_unlocked_opponent = (not m_guid.startswith(USER_GUID) and gameday_status.get(r_id, 3) == 0)
+                # Hide team roster details if the race has not locked yet for privacy (for all players)
+                is_unlocked = (gameday_status.get(r_id, 3) == 0)
                 
-                if not is_unlocked_opponent:
+                if not is_unlocked:
                     feed_map = race_feeds.get(r_id, {})
                     # playerid list contains the players in the roster
                     for p_item in user_team.get("playerid") or []:
