@@ -178,7 +178,7 @@ function App() {
 
   // Load the F1 data JSON
   useEffect(() => {
-    fetch('./data.json')
+    fetch('./data.json?t=' + Date.now())
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to load fantasy league data. Make sure scraper has been run.');
