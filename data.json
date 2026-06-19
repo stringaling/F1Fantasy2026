@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-19T15:58:16Z",
+  "last_updated": "2026-06-19T16:31:12Z",
   "league_name": "Formula 42/51",
   "league_id": "6360509",
   "current_race_id": 8,
@@ -5197,5 +5197,1607 @@
         }
       ]
     }
-  ]
+  ],
+  "master_results": {
+    "1": {
+      "18": {
+        "points": 11.0,
+        "name": "Pierre Gasly",
+        "tla": "GAS",
+        "price": 12.0
+      },
+      "11059": {
+        "points": 6.0,
+        "name": "Franco Colapinto",
+        "tla": "COL",
+        "price": 6.2
+      },
+      "12": {
+        "points": -14.0,
+        "name": "Fernando Alonso",
+        "tla": "ALO",
+        "price": 10.0
+      },
+      "129": {
+        "points": -23.0,
+        "name": "Lance Stroll",
+        "tla": "STR",
+        "price": 8.0
+      },
+      "111": {
+        "points": -20.0,
+        "name": "Nico Hulkenberg",
+        "tla": "HUL",
+        "price": 6.8
+      },
+      "11051": {
+        "points": 13.0,
+        "name": "Gabriel Bortoleto",
+        "tla": "BOR",
+        "price": 6.4
+      },
+      "121": {
+        "points": 4.0,
+        "name": "Sergio Perez",
+        "tla": "PER",
+        "price": 6.0
+      },
+      "13": {
+        "points": -16.0,
+        "name": "Valtteri Bottas",
+        "tla": "BOT",
+        "price": 5.9
+      },
+      "115": {
+        "points": 29.0,
+        "name": "Charles Leclerc",
+        "tla": "LEC",
+        "price": 22.8
+      },
+      "110": {
+        "points": 25.0,
+        "name": "Lewis Hamilton",
+        "tla": "HAM",
+        "price": 22.5
+      },
+      "11031": {
+        "points": 20.0,
+        "name": "Oliver Bearman",
+        "tla": "BEA",
+        "price": 7.4
+      },
+      "118": {
+        "points": 9.0,
+        "name": "Esteban Ocon",
+        "tla": "OCO",
+        "price": 7.3
+      },
+      "117": {
+        "points": 21.0,
+        "name": "Lando Norris",
+        "tla": "NOR",
+        "price": 27.2
+      },
+      "1982": {
+        "points": -14.0,
+        "name": "Oscar Piastri",
+        "tla": "PIA",
+        "price": 25.5
+      },
+      "124": {
+        "points": 39.0,
+        "name": "George Russell",
+        "tla": "RUS",
+        "price": 27.4
+      },
+      "11161": {
+        "points": 32.0,
+        "name": "Kimi Antonelli",
+        "tla": "ANT",
+        "price": 23.2
+      },
+      "114": {
+        "points": 5.0,
+        "name": "Liam Lawson",
+        "tla": "LAW",
+        "price": 6.5
+      },
+      "11149": {
+        "points": 15.0,
+        "name": "Arvid Lindblad",
+        "tla": "LIN",
+        "price": 6.2
+      },
+      "131": {
+        "points": 50.0,
+        "name": "Max Verstappen",
+        "tla": "VER",
+        "price": 27.7
+      },
+      "11032": {
+        "points": -8.0,
+        "name": "Isack Hadjar",
+        "tla": "HAD",
+        "price": 15.1
+      },
+      "125": {
+        "points": 9.0,
+        "name": "Carlos Sainz",
+        "tla": "SAI",
+        "price": 11.8
+      },
+      "11": {
+        "points": 8.0,
+        "name": "Alexander Albon",
+        "tla": "ALB",
+        "price": 11.6
+      },
+      "28": {
+        "points": 96.0,
+        "name": "Mercedes",
+        "tla": "MER",
+        "price": 29.3
+      },
+      "27": {
+        "points": 19.0,
+        "name": "McLaren",
+        "tla": "MCL",
+        "price": 28.9
+      },
+      "29": {
+        "points": 42.0,
+        "name": "Red Bull Racing",
+        "tla": "RBR",
+        "price": 28.2
+      },
+      "25": {
+        "points": 69.0,
+        "name": "Ferrari",
+        "tla": "FER",
+        "price": 23.3
+      },
+      "23": {
+        "points": 22.0,
+        "name": "Alpine",
+        "tla": "ALP",
+        "price": 12.5
+      },
+      "210": {
+        "points": 20.0,
+        "name": "Williams",
+        "tla": "WIL",
+        "price": 12.0
+      },
+      "24": {
+        "points": -38.0,
+        "name": "Aston Martin",
+        "tla": "AST",
+        "price": 10.3
+      },
+      "26": {
+        "points": 34.0,
+        "name": "Haas F1 Team",
+        "tla": "HAA",
+        "price": 7.4
+      },
+      "2640": {
+        "points": 0.0,
+        "name": "Audi",
+        "tla": "AUD",
+        "price": 6.6
+      },
+      "2636": {
+        "points": 35.0,
+        "name": "Racing Bulls",
+        "tla": "RBS",
+        "price": 6.3
+      },
+      "2641": {
+        "points": -13.0,
+        "name": "Cadillac",
+        "tla": "CAD",
+        "price": 6.0
+      }
+    },
+    "2": {
+      "18": {
+        "points": 20.0,
+        "name": "Pierre Gasly",
+        "tla": "GAS",
+        "price": 12.2
+      },
+      "11059": {
+        "points": 18.0,
+        "name": "Franco Colapinto",
+        "tla": "COL",
+        "price": 6.4
+      },
+      "12": {
+        "points": -7.0,
+        "name": "Fernando Alonso",
+        "tla": "ALO",
+        "price": 9.4
+      },
+      "129": {
+        "points": -14.0,
+        "name": "Lance Stroll",
+        "tla": "STR",
+        "price": 7.4
+      },
+      "11051": {
+        "points": -14.0,
+        "name": "Gabriel Bortoleto",
+        "tla": "BOR",
+        "price": 7.0
+      },
+      "111": {
+        "points": 7.0,
+        "name": "Nico Hulkenberg",
+        "tla": "HUL",
+        "price": 6.2
+      },
+      "121": {
+        "points": 20.0,
+        "name": "Sergio Perez",
+        "tla": "PER",
+        "price": 5.8
+      },
+      "13": {
+        "points": 3.0,
+        "name": "Valtteri Bottas",
+        "tla": "BOT",
+        "price": 5.3
+      },
+      "115": {
+        "points": 51.0,
+        "name": "Charles Leclerc",
+        "tla": "LEC",
+        "price": 23.1
+      },
+      "110": {
+        "points": 48.0,
+        "name": "Lewis Hamilton",
+        "tla": "HAM",
+        "price": 22.6
+      },
+      "11031": {
+        "points": 34.0,
+        "name": "Oliver Bearman",
+        "tla": "BEA",
+        "price": 8.0
+      },
+      "118": {
+        "points": 24.0,
+        "name": "Esteban Ocon",
+        "tla": "OCO",
+        "price": 7.9
+      },
+      "117": {
+        "points": -10.0,
+        "name": "Lando Norris",
+        "tla": "NOR",
+        "price": 27.1
+      },
+      "1982": {
+        "points": -7.0,
+        "name": "Oscar Piastri",
+        "tla": "PIA",
+        "price": 25.2
+      },
+      "124": {
+        "points": 45.0,
+        "name": "George Russell",
+        "tla": "RUS",
+        "price": 27.7
+      },
+      "11161": {
+        "points": 68.0,
+        "name": "Kimi Antonelli",
+        "tla": "ANT",
+        "price": 23.5
+      },
+      "11149": {
+        "points": 7.0,
+        "name": "Arvid Lindblad",
+        "tla": "LIN",
+        "price": 6.8
+      },
+      "114": {
+        "points": 35.0,
+        "name": "Liam Lawson",
+        "tla": "LAW",
+        "price": 6.3
+      },
+      "131": {
+        "points": 14.0,
+        "name": "Max Verstappen",
+        "tla": "VER",
+        "price": 28.0
+      },
+      "11032": {
+        "points": 19.0,
+        "name": "Isack Hadjar",
+        "tla": "HAD",
+        "price": 14.5
+      },
+      "125": {
+        "points": 28.0,
+        "name": "Carlos Sainz",
+        "tla": "SAI",
+        "price": 11.6
+      },
+      "11": {
+        "points": -7.0,
+        "name": "Alexander Albon",
+        "tla": "ALB",
+        "price": 11.4
+      },
+      "28": {
+        "points": 115.0,
+        "name": "Mercedes",
+        "tla": "MER",
+        "price": 29.6
+      },
+      "27": {
+        "points": -7.0,
+        "name": "McLaren",
+        "tla": "MCL",
+        "price": 28.8
+      },
+      "29": {
+        "points": 45.0,
+        "name": "Red Bull Racing",
+        "tla": "RBR",
+        "price": 28.5
+      },
+      "25": {
+        "points": 119.0,
+        "name": "Ferrari",
+        "tla": "FER",
+        "price": 23.6
+      },
+      "23": {
+        "points": 45.0,
+        "name": "Alpine",
+        "tla": "ALP",
+        "price": 13.1
+      },
+      "210": {
+        "points": 22.0,
+        "name": "Williams",
+        "tla": "WIL",
+        "price": 12.6
+      },
+      "24": {
+        "points": -20.0,
+        "name": "Aston Martin",
+        "tla": "AST",
+        "price": 9.7
+      },
+      "26": {
+        "points": 65.0,
+        "name": "Haas F1 Team",
+        "tla": "HAA",
+        "price": 8.0
+      },
+      "2636": {
+        "points": 50.0,
+        "name": "Racing Bulls",
+        "tla": "RBS",
+        "price": 6.9
+      },
+      "2640": {
+        "points": -4.0,
+        "name": "Audi",
+        "tla": "AUD",
+        "price": 6.0
+      },
+      "2641": {
+        "points": 22.0,
+        "name": "Cadillac",
+        "tla": "CAD",
+        "price": 5.4
+      }
+    },
+    "3": {
+      "18": {
+        "points": 14.0,
+        "name": "Pierre Gasly",
+        "tla": "GAS",
+        "price": 12.8
+      },
+      "11059": {
+        "points": 4.0,
+        "name": "Franco Colapinto",
+        "tla": "COL",
+        "price": 7.0
+      },
+      "12": {
+        "points": 4.0,
+        "name": "Fernando Alonso",
+        "tla": "ALO",
+        "price": 8.8
+      },
+      "129": {
+        "points": -17.0,
+        "name": "Lance Stroll",
+        "tla": "STR",
+        "price": 6.8
+      },
+      "11051": {
+        "points": 3.0,
+        "name": "Gabriel Bortoleto",
+        "tla": "BOR",
+        "price": 6.4
+      },
+      "111": {
+        "points": 10.0,
+        "name": "Nico Hulkenberg",
+        "tla": "HUL",
+        "price": 5.6
+      },
+      "121": {
+        "points": 4.0,
+        "name": "Sergio Perez",
+        "tla": "PER",
+        "price": 6.4
+      },
+      "13": {
+        "points": 2.0,
+        "name": "Valtteri Bottas",
+        "tla": "BOT",
+        "price": 4.7
+      },
+      "115": {
+        "points": 31.0,
+        "name": "Charles Leclerc",
+        "tla": "LEC",
+        "price": 23.4
+      },
+      "110": {
+        "points": 19.0,
+        "name": "Lewis Hamilton",
+        "tla": "HAM",
+        "price": 22.9
+      },
+      "11031": {
+        "points": -14.0,
+        "name": "Oliver Bearman",
+        "tla": "BEA",
+        "price": 8.6
+      },
+      "118": {
+        "points": 9.0,
+        "name": "Esteban Ocon",
+        "tla": "OCO",
+        "price": 8.5
+      },
+      "117": {
+        "points": 24.0,
+        "name": "Lando Norris",
+        "tla": "NOR",
+        "price": 26.8
+      },
+      "1982": {
+        "points": 43.0,
+        "name": "Oscar Piastri",
+        "tla": "PIA",
+        "price": 24.9
+      },
+      "124": {
+        "points": 27.0,
+        "name": "George Russell",
+        "tla": "RUS",
+        "price": 28.0
+      },
+      "11161": {
+        "points": 50.0,
+        "name": "Kimi Antonelli",
+        "tla": "ANT",
+        "price": 23.8
+      },
+      "11149": {
+        "points": 1.0,
+        "name": "Arvid Lindblad",
+        "tla": "LIN",
+        "price": 7.4
+      },
+      "114": {
+        "points": 10.0,
+        "name": "Liam Lawson",
+        "tla": "LAW",
+        "price": 6.9
+      },
+      "131": {
+        "points": 13.0,
+        "name": "Max Verstappen",
+        "tla": "VER",
+        "price": 28.1
+      },
+      "11032": {
+        "points": 5.0,
+        "name": "Isack Hadjar",
+        "tla": "HAD",
+        "price": 13.9
+      },
+      "125": {
+        "points": 4.0,
+        "name": "Carlos Sainz",
+        "tla": "SAI",
+        "price": 12.2
+      },
+      "11": {
+        "points": -1.0,
+        "name": "Alexander Albon",
+        "tla": "ALB",
+        "price": 10.8
+      },
+      "28": {
+        "points": 92.0,
+        "name": "Mercedes",
+        "tla": "MER",
+        "price": 29.9
+      },
+      "29": {
+        "points": 25.0,
+        "name": "Red Bull Racing",
+        "tla": "RBR",
+        "price": 28.8
+      },
+      "27": {
+        "points": 72.0,
+        "name": "McLaren",
+        "tla": "MCL",
+        "price": 28.5
+      },
+      "25": {
+        "points": 75.0,
+        "name": "Ferrari",
+        "tla": "FER",
+        "price": 23.9
+      },
+      "23": {
+        "points": 25.0,
+        "name": "Alpine",
+        "tla": "ALP",
+        "price": 13.7
+      },
+      "210": {
+        "points": 9.0,
+        "name": "Williams",
+        "tla": "WIL",
+        "price": 13.2
+      },
+      "24": {
+        "points": -12.0,
+        "name": "Aston Martin",
+        "tla": "AST",
+        "price": 9.1
+      },
+      "26": {
+        "points": -4.0,
+        "name": "Haas F1 Team",
+        "tla": "HAA",
+        "price": 8.6
+      },
+      "2636": {
+        "points": 18.0,
+        "name": "Racing Bulls",
+        "tla": "RBS",
+        "price": 7.5
+      },
+      "2640": {
+        "points": 23.0,
+        "name": "Audi",
+        "tla": "AUD",
+        "price": 5.4
+      },
+      "2641": {
+        "points": 5.0,
+        "name": "Cadillac",
+        "tla": "CAD",
+        "price": 5.2
+      }
+    },
+    "4": {
+      "18": {
+        "points": -8.0,
+        "name": "Pierre Gasly",
+        "tla": "GAS",
+        "price": 13.0
+      },
+      "11059": {
+        "points": 13.0,
+        "name": "Franco Colapinto",
+        "tla": "COL",
+        "price": 7.6
+      },
+      "12": {
+        "points": 20.0,
+        "name": "Fernando Alonso",
+        "tla": "ALO",
+        "price": 8.2
+      },
+      "129": {
+        "points": 17.0,
+        "name": "Lance Stroll",
+        "tla": "STR",
+        "price": 6.2
+      },
+      "11051": {
+        "points": 7.0,
+        "name": "Gabriel Bortoleto",
+        "tla": "BOR",
+        "price": 5.8
+      },
+      "111": {
+        "points": -29.0,
+        "name": "Nico Hulkenberg",
+        "tla": "HUL",
+        "price": 5.0
+      },
+      "121": {
+        "points": 19.0,
+        "name": "Sergio Perez",
+        "tla": "PER",
+        "price": 7.0
+      },
+      "13": {
+        "points": 4.0,
+        "name": "Valtteri Bottas",
+        "tla": "BOT",
+        "price": 4.1
+      },
+      "115": {
+        "points": 27.0,
+        "name": "Charles Leclerc",
+        "tla": "LEC",
+        "price": 23.7
+      },
+      "110": {
+        "points": 20.0,
+        "name": "Lewis Hamilton",
+        "tla": "HAM",
+        "price": 23.2
+      },
+      "11031": {
+        "points": 6.0,
+        "name": "Oliver Bearman",
+        "tla": "BEA",
+        "price": 9.2
+      },
+      "118": {
+        "points": 14.0,
+        "name": "Esteban Ocon",
+        "tla": "OCO",
+        "price": 9.1
+      },
+      "117": {
+        "points": 54.0,
+        "name": "Lando Norris",
+        "tla": "NOR",
+        "price": 26.5
+      },
+      "1982": {
+        "points": 41.0,
+        "name": "Oscar Piastri",
+        "tla": "PIA",
+        "price": 24.6
+      },
+      "124": {
+        "points": 42.0,
+        "name": "George Russell",
+        "tla": "RUS",
+        "price": 28.3
+      },
+      "11161": {
+        "points": 42.0,
+        "name": "Kimi Antonelli",
+        "tla": "ANT",
+        "price": 24.1
+      },
+      "11149": {
+        "points": -4.0,
+        "name": "Arvid Lindblad",
+        "tla": "LIN",
+        "price": 7.6
+      },
+      "114": {
+        "points": -12.0,
+        "name": "Liam Lawson",
+        "tla": "LAW",
+        "price": 7.5
+      },
+      "131": {
+        "points": 52.0,
+        "name": "Max Verstappen",
+        "tla": "VER",
+        "price": 28.2
+      },
+      "11032": {
+        "points": -16.0,
+        "name": "Isack Hadjar",
+        "tla": "HAD",
+        "price": 13.3
+      },
+      "125": {
+        "points": 19.0,
+        "name": "Carlos Sainz",
+        "tla": "SAI",
+        "price": 12.4
+      },
+      "11": {
+        "points": 20.0,
+        "name": "Alexander Albon",
+        "tla": "ALB",
+        "price": 10.2
+      },
+      "28": {
+        "points": 104.0,
+        "name": "Mercedes",
+        "tla": "MER",
+        "price": 30.2
+      },
+      "29": {
+        "points": 31.0,
+        "name": "Red Bull Racing",
+        "tla": "RBR",
+        "price": 29.1
+      },
+      "27": {
+        "points": 110.0,
+        "name": "McLaren",
+        "tla": "MCL",
+        "price": 28.6
+      },
+      "25": {
+        "points": 57.0,
+        "name": "Ferrari",
+        "tla": "FER",
+        "price": 24.2
+      },
+      "23": {
+        "points": 17.0,
+        "name": "Alpine",
+        "tla": "ALP",
+        "price": 14.3
+      },
+      "210": {
+        "points": 42.0,
+        "name": "Williams",
+        "tla": "WIL",
+        "price": 13.8
+      },
+      "26": {
+        "points": 23.0,
+        "name": "Haas F1 Team",
+        "tla": "HAA",
+        "price": 9.2
+      },
+      "24": {
+        "points": 38.0,
+        "name": "Aston Martin",
+        "tla": "AST",
+        "price": 8.5
+      },
+      "2636": {
+        "points": 2.0,
+        "name": "Racing Bulls",
+        "tla": "RBS",
+        "price": 8.1
+      },
+      "2640": {
+        "points": -27.0,
+        "name": "Audi",
+        "tla": "AUD",
+        "price": 5.6
+      },
+      "2641": {
+        "points": 24.0,
+        "name": "Cadillac",
+        "tla": "CAD",
+        "price": 5.0
+      }
+    },
+    "5": {
+      "18": {
+        "points": 16.0,
+        "name": "Pierre Gasly",
+        "tla": "GAS",
+        "price": 12.8
+      },
+      "11059": {
+        "points": 25.0,
+        "name": "Franco Colapinto",
+        "tla": "COL",
+        "price": 8.2
+      },
+      "12": {
+        "points": -26.0,
+        "name": "Fernando Alonso",
+        "tla": "ALO",
+        "price": 8.0
+      },
+      "129": {
+        "points": 11.0,
+        "name": "Lance Stroll",
+        "tla": "STR",
+        "price": 5.6
+      },
+      "11051": {
+        "points": 5.0,
+        "name": "Gabriel Bortoleto",
+        "tla": "BOR",
+        "price": 5.2
+      },
+      "111": {
+        "points": 1.0,
+        "name": "Nico Hulkenberg",
+        "tla": "HUL",
+        "price": 4.4
+      },
+      "121": {
+        "points": -11.0,
+        "name": "Sergio Perez",
+        "tla": "PER",
+        "price": 7.6
+      },
+      "13": {
+        "points": 12.0,
+        "name": "Valtteri Bottas",
+        "tla": "BOT",
+        "price": 3.9
+      },
+      "115": {
+        "points": 27.0,
+        "name": "Charles Leclerc",
+        "tla": "LEC",
+        "price": 24.0
+      },
+      "110": {
+        "points": 42.0,
+        "name": "Lewis Hamilton",
+        "tla": "HAM",
+        "price": 23.5
+      },
+      "118": {
+        "points": 8.0,
+        "name": "Esteban Ocon",
+        "tla": "OCO",
+        "price": 9.7
+      },
+      "11031": {
+        "points": 10.0,
+        "name": "Oliver Bearman",
+        "tla": "BEA",
+        "price": 9.4
+      },
+      "117": {
+        "points": 6.0,
+        "name": "Lando Norris",
+        "tla": "NOR",
+        "price": 26.4
+      },
+      "1982": {
+        "points": 12.0,
+        "name": "Oscar Piastri",
+        "tla": "PIA",
+        "price": 24.7
+      },
+      "124": {
+        "points": 4.0,
+        "name": "George Russell",
+        "tla": "RUS",
+        "price": 28.6
+      },
+      "11161": {
+        "points": 62.0,
+        "name": "Kimi Antonelli",
+        "tla": "ANT",
+        "price": 24.4
+      },
+      "114": {
+        "points": 23.0,
+        "name": "Liam Lawson",
+        "tla": "LAW",
+        "price": 8.1
+      },
+      "11149": {
+        "points": -16.0,
+        "name": "Arvid Lindblad",
+        "tla": "LIN",
+        "price": 7.0
+      },
+      "131": {
+        "points": 26.0,
+        "name": "Max Verstappen",
+        "tla": "VER",
+        "price": 28.3
+      },
+      "11032": {
+        "points": 6.0,
+        "name": "Isack Hadjar",
+        "tla": "HAD",
+        "price": 12.7
+      },
+      "125": {
+        "points": 11.0,
+        "name": "Carlos Sainz",
+        "tla": "SAI",
+        "price": 13.0
+      },
+      "11": {
+        "points": -8.0,
+        "name": "Alexander Albon",
+        "tla": "ALB",
+        "price": 9.6
+      },
+      "28": {
+        "points": 76.0,
+        "name": "Mercedes",
+        "tla": "MER",
+        "price": 30.5
+      },
+      "29": {
+        "points": 44.0,
+        "name": "Red Bull Racing",
+        "tla": "RBR",
+        "price": 29.2
+      },
+      "27": {
+        "points": 33.0,
+        "name": "McLaren",
+        "tla": "MCL",
+        "price": 28.9
+      },
+      "25": {
+        "points": 69.0,
+        "name": "Ferrari",
+        "tla": "FER",
+        "price": 24.5
+      },
+      "23": {
+        "points": 46.0,
+        "name": "Alpine",
+        "tla": "ALP",
+        "price": 14.9
+      },
+      "210": {
+        "points": 6.0,
+        "name": "Williams",
+        "tla": "WIL",
+        "price": 14.4
+      },
+      "26": {
+        "points": 19.0,
+        "name": "Haas F1 Team",
+        "tla": "HAA",
+        "price": 9.8
+      },
+      "2636": {
+        "points": 22.0,
+        "name": "Racing Bulls",
+        "tla": "RBS",
+        "price": 8.7
+      },
+      "24": {
+        "points": -14.0,
+        "name": "Aston Martin",
+        "tla": "AST",
+        "price": 7.9
+      },
+      "2641": {
+        "points": 2.0,
+        "name": "Cadillac",
+        "tla": "CAD",
+        "price": 5.6
+      },
+      "2640": {
+        "points": 11.0,
+        "name": "Audi",
+        "tla": "AUD",
+        "price": 5.0
+      }
+    },
+    "6": {
+      "18": {
+        "points": 25.0,
+        "name": "Pierre Gasly",
+        "tla": "GAS",
+        "price": 12.2
+      },
+      "11059": {
+        "points": 0.0,
+        "name": "Franco Colapinto",
+        "tla": "COL",
+        "price": 8.8
+      },
+      "12": {
+        "points": 15.0,
+        "name": "Fernando Alonso",
+        "tla": "ALO",
+        "price": 7.4
+      },
+      "129": {
+        "points": -20.0,
+        "name": "Lance Stroll",
+        "tla": "STR",
+        "price": 5.4
+      },
+      "11051": {
+        "points": 5.0,
+        "name": "Gabriel Bortoleto",
+        "tla": "BOR",
+        "price": 5.4
+      },
+      "111": {
+        "points": 3.0,
+        "name": "Nico Hulkenberg",
+        "tla": "HUL",
+        "price": 3.8
+      },
+      "121": {
+        "points": 8.0,
+        "name": "Sergio Perez",
+        "tla": "PER",
+        "price": 7.0
+      },
+      "13": {
+        "points": -20.0,
+        "name": "Valtteri Bottas",
+        "tla": "BOT",
+        "price": 4.5
+      },
+      "115": {
+        "points": -13.0,
+        "name": "Charles Leclerc",
+        "tla": "LEC",
+        "price": 24.1
+      },
+      "110": {
+        "points": 27.0,
+        "name": "Lewis Hamilton",
+        "tla": "HAM",
+        "price": 23.6
+      },
+      "118": {
+        "points": 12.0,
+        "name": "Esteban Ocon",
+        "tla": "OCO",
+        "price": 9.9
+      },
+      "11031": {
+        "points": -19.0,
+        "name": "Oliver Bearman",
+        "tla": "BEA",
+        "price": 8.8
+      },
+      "117": {
+        "points": -17.0,
+        "name": "Lando Norris",
+        "tla": "NOR",
+        "price": 26.5
+      },
+      "1982": {
+        "points": 16.0,
+        "name": "Oscar Piastri",
+        "tla": "PIA",
+        "price": 25.0
+      },
+      "124": {
+        "points": 0.0,
+        "name": "George Russell",
+        "tla": "RUS",
+        "price": 28.5
+      },
+      "11161": {
+        "points": 55.0,
+        "name": "Kimi Antonelli",
+        "tla": "ANT",
+        "price": 24.7
+      },
+      "114": {
+        "points": 13.0,
+        "name": "Liam Lawson",
+        "tla": "LAW",
+        "price": 7.9
+      },
+      "11149": {
+        "points": 18.0,
+        "name": "Arvid Lindblad",
+        "tla": "LIN",
+        "price": 6.4
+      },
+      "131": {
+        "points": -11.0,
+        "name": "Max Verstappen",
+        "tla": "VER",
+        "price": 28.4
+      },
+      "11032": {
+        "points": 19.0,
+        "name": "Isack Hadjar",
+        "tla": "HAD",
+        "price": 12.1
+      },
+      "125": {
+        "points": -3.0,
+        "name": "Carlos Sainz",
+        "tla": "SAI",
+        "price": 12.8
+      },
+      "11": {
+        "points": 9.0,
+        "name": "Alexander Albon",
+        "tla": "ALB",
+        "price": 9.0
+      },
+      "28": {
+        "points": 70.0,
+        "name": "Mercedes",
+        "tla": "MER",
+        "price": 30.8
+      },
+      "29": {
+        "points": 18.0,
+        "name": "Red Bull Racing",
+        "tla": "RBR",
+        "price": 29.3
+      },
+      "27": {
+        "points": 14.0,
+        "name": "McLaren",
+        "tla": "MCL",
+        "price": 29.2
+      },
+      "25": {
+        "points": 29.0,
+        "name": "Ferrari",
+        "tla": "FER",
+        "price": 24.8
+      },
+      "23": {
+        "points": 30.0,
+        "name": "Alpine",
+        "tla": "ALP",
+        "price": 15.5
+      },
+      "210": {
+        "points": 9.0,
+        "name": "Williams",
+        "tla": "WIL",
+        "price": 15.0
+      },
+      "26": {
+        "points": -8.0,
+        "name": "Haas F1 Team",
+        "tla": "HAA",
+        "price": 10.4
+      },
+      "2636": {
+        "points": 36.0,
+        "name": "Racing Bulls",
+        "tla": "RBS",
+        "price": 9.3
+      },
+      "24": {
+        "points": -4.0,
+        "name": "Aston Martin",
+        "tla": "AST",
+        "price": 7.3
+      },
+      "2641": {
+        "points": -13.0,
+        "name": "Cadillac",
+        "tla": "CAD",
+        "price": 6.2
+      },
+      "2640": {
+        "points": 21.0,
+        "name": "Audi",
+        "tla": "AUD",
+        "price": 4.4
+      }
+    },
+    "7": {
+      "18": {
+        "points": 17.0,
+        "name": "Pierre Gasly",
+        "tla": "GAS",
+        "price": 11.6
+      },
+      "11059": {
+        "points": 9.0,
+        "name": "Franco Colapinto",
+        "tla": "COL",
+        "price": 9.4
+      },
+      "12": {
+        "points": -17.0,
+        "name": "Fernando Alonso",
+        "tla": "ALO",
+        "price": 6.8
+      },
+      "129": {
+        "points": -20.0,
+        "name": "Lance Stroll",
+        "tla": "STR",
+        "price": 4.8
+      },
+      "11051": {
+        "points": 7.0,
+        "name": "Gabriel Bortoleto",
+        "tla": "BOR",
+        "price": 5.6
+      },
+      "111": {
+        "points": -15.0,
+        "name": "Nico Hulkenberg",
+        "tla": "HUL",
+        "price": 3.2
+      },
+      "121": {
+        "points": 8.0,
+        "name": "Sergio Perez",
+        "tla": "PER",
+        "price": 6.8
+      },
+      "13": {
+        "points": -18.0,
+        "name": "Valtteri Bottas",
+        "tla": "BOT",
+        "price": 3.9
+      },
+      "110": {
+        "points": 56.0,
+        "name": "Lewis Hamilton",
+        "tla": "HAM",
+        "price": 23.9
+      },
+      "115": {
+        "points": 0.0,
+        "name": "Charles Leclerc",
+        "tla": "LEC",
+        "price": 23.8
+      },
+      "118": {
+        "points": 8.0,
+        "name": "Esteban Ocon",
+        "tla": "OCO",
+        "price": 10.1
+      },
+      "11031": {
+        "points": 7.0,
+        "name": "Oliver Bearman",
+        "tla": "BEA",
+        "price": 8.2
+      },
+      "117": {
+        "points": 23.0,
+        "name": "Lando Norris",
+        "tla": "NOR",
+        "price": 26.2
+      },
+      "1982": {
+        "points": 19.0,
+        "name": "Oscar Piastri",
+        "tla": "PIA",
+        "price": 25.1
+      },
+      "124": {
+        "points": 28.0,
+        "name": "George Russell",
+        "tla": "RUS",
+        "price": 28.2
+      },
+      "11161": {
+        "points": -4.0,
+        "name": "Kimi Antonelli",
+        "tla": "ANT",
+        "price": 25.0
+      },
+      "114": {
+        "points": 9.0,
+        "name": "Liam Lawson",
+        "tla": "LAW",
+        "price": 8.1
+      },
+      "11149": {
+        "points": 10.0,
+        "name": "Arvid Lindblad",
+        "tla": "LIN",
+        "price": 5.8
+      },
+      "131": {
+        "points": 22.0,
+        "name": "Max Verstappen",
+        "tla": "VER",
+        "price": 28.3
+      },
+      "11032": {
+        "points": 22.0,
+        "name": "Isack Hadjar",
+        "tla": "HAD",
+        "price": 11.5
+      },
+      "125": {
+        "points": 11.0,
+        "name": "Carlos Sainz",
+        "tla": "SAI",
+        "price": 12.6
+      },
+      "11": {
+        "points": -16.0,
+        "name": "Alexander Albon",
+        "tla": "ALB",
+        "price": 8.8
+      },
+      "28": {
+        "points": 39.0,
+        "name": "Mercedes",
+        "tla": "MER",
+        "price": 31.1
+      },
+      "27": {
+        "points": 67.0,
+        "name": "McLaren",
+        "tla": "MCL",
+        "price": 29.5
+      },
+      "29": {
+        "points": 59.0,
+        "name": "Red Bull Racing",
+        "tla": "RBR",
+        "price": 29.4
+      },
+      "25": {
+        "points": 58.0,
+        "name": "Ferrari",
+        "tla": "FER",
+        "price": 25.1
+      },
+      "23": {
+        "points": 31.0,
+        "name": "Alpine",
+        "tla": "ALP",
+        "price": 16.1
+      },
+      "210": {
+        "points": 1.0,
+        "name": "Williams",
+        "tla": "WIL",
+        "price": 15.6
+      },
+      "26": {
+        "points": 16.0,
+        "name": "Haas F1 Team",
+        "tla": "HAA",
+        "price": 10.6
+      },
+      "2636": {
+        "points": 26.0,
+        "name": "Racing Bulls",
+        "tla": "RBS",
+        "price": 9.9
+      },
+      "24": {
+        "points": -36.0,
+        "name": "Aston Martin",
+        "tla": "AST",
+        "price": 7.5
+      },
+      "2641": {
+        "points": -9.0,
+        "name": "Cadillac",
+        "tla": "CAD",
+        "price": 6.0
+      },
+      "2640": {
+        "points": 2.0,
+        "name": "Audi",
+        "tla": "AUD",
+        "price": 3.8
+      }
+    },
+    "8": {
+      "18": {
+        "points": 0.0,
+        "name": "Pierre Gasly",
+        "tla": "GAS",
+        "price": 12.2
+      },
+      "11059": {
+        "points": 0.0,
+        "name": "Franco Colapinto",
+        "tla": "COL",
+        "price": 10.0
+      },
+      "12": {
+        "points": 0.0,
+        "name": "Fernando Alonso",
+        "tla": "ALO",
+        "price": 6.2
+      },
+      "129": {
+        "points": 0.0,
+        "name": "Lance Stroll",
+        "tla": "STR",
+        "price": 4.2
+      },
+      "11051": {
+        "points": 0.0,
+        "name": "Gabriel Bortoleto",
+        "tla": "BOR",
+        "price": 5.8
+      },
+      "111": {
+        "points": 0.0,
+        "name": "Nico Hulkenberg",
+        "tla": "HUL",
+        "price": 3.0
+      },
+      "121": {
+        "points": 0.0,
+        "name": "Sergio Perez",
+        "tla": "PER",
+        "price": 6.2
+      },
+      "13": {
+        "points": 0.0,
+        "name": "Valtteri Bottas",
+        "tla": "BOT",
+        "price": 3.3
+      },
+      "110": {
+        "points": 0.0,
+        "name": "Lewis Hamilton",
+        "tla": "HAM",
+        "price": 24.2
+      },
+      "115": {
+        "points": 0.0,
+        "name": "Charles Leclerc",
+        "tla": "LEC",
+        "price": 23.5
+      },
+      "118": {
+        "points": 0.0,
+        "name": "Esteban Ocon",
+        "tla": "OCO",
+        "price": 10.3
+      },
+      "11031": {
+        "points": 0.0,
+        "name": "Oliver Bearman",
+        "tla": "BEA",
+        "price": 7.6
+      },
+      "117": {
+        "points": 0.0,
+        "name": "Lando Norris",
+        "tla": "NOR",
+        "price": 25.9
+      },
+      "1982": {
+        "points": 0.0,
+        "name": "Oscar Piastri",
+        "tla": "PIA",
+        "price": 25.0
+      },
+      "124": {
+        "points": 0.0,
+        "name": "George Russell",
+        "tla": "RUS",
+        "price": 27.9
+      },
+      "11161": {
+        "points": 0.0,
+        "name": "Kimi Antonelli",
+        "tla": "ANT",
+        "price": 25.3
+      },
+      "114": {
+        "points": 0.0,
+        "name": "Liam Lawson",
+        "tla": "LAW",
+        "price": 8.7
+      },
+      "11149": {
+        "points": 0.0,
+        "name": "Arvid Lindblad",
+        "tla": "LIN",
+        "price": 5.6
+      },
+      "131": {
+        "points": 0.0,
+        "name": "Max Verstappen",
+        "tla": "VER",
+        "price": 28.0
+      },
+      "11032": {
+        "points": 0.0,
+        "name": "Isack Hadjar",
+        "tla": "HAD",
+        "price": 12.1
+      },
+      "125": {
+        "points": 0.0,
+        "name": "Carlos Sainz",
+        "tla": "SAI",
+        "price": 12.0
+      },
+      "11": {
+        "points": 0.0,
+        "name": "Alexander Albon",
+        "tla": "ALB",
+        "price": 8.2
+      },
+      "28": {
+        "points": 0.0,
+        "name": "Mercedes",
+        "tla": "MER",
+        "price": 31.4
+      },
+      "27": {
+        "points": 0.0,
+        "name": "McLaren",
+        "tla": "MCL",
+        "price": 29.8
+      },
+      "29": {
+        "points": 0.0,
+        "name": "Red Bull Racing",
+        "tla": "RBR",
+        "price": 29.7
+      },
+      "25": {
+        "points": 0.0,
+        "name": "Ferrari",
+        "tla": "FER",
+        "price": 25.4
+      },
+      "23": {
+        "points": 0.0,
+        "name": "Alpine",
+        "tla": "ALP",
+        "price": 16.7
+      },
+      "210": {
+        "points": 0.0,
+        "name": "Williams",
+        "tla": "WIL",
+        "price": 15.0
+      },
+      "2636": {
+        "points": 0.0,
+        "name": "Racing Bulls",
+        "tla": "RBS",
+        "price": 10.5
+      },
+      "26": {
+        "points": 0.0,
+        "name": "Haas F1 Team",
+        "tla": "HAA",
+        "price": 10.4
+      },
+      "24": {
+        "points": 0.0,
+        "name": "Aston Martin",
+        "tla": "AST",
+        "price": 6.9
+      },
+      "2641": {
+        "points": 0.0,
+        "name": "Cadillac",
+        "tla": "CAD",
+        "price": 5.4
+      },
+      "2640": {
+        "points": 0.0,
+        "name": "Audi",
+        "tla": "AUD",
+        "price": 4.4
+      }
+    }
+  }
 }
