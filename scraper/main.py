@@ -46,7 +46,6 @@ RACE_NAMES = {
     20: "Qatar GP",
     21: "Abu Dhabi GP"
 }
-
 def generate_mock_data():
     """Generates premium mock data for development and testing."""
     print("⚠️ Credentials not configured or invalid in scraper/.env.")
@@ -110,6 +109,26 @@ def generate_mock_data():
     # Standard chips list
     chips_list = ["wildcard", "limitless", "autopilot", "final_fix", "no_negative", "extra_drs"]
     
+    # Generate master results map for each race
+    # race_id -> player_id -> { "points": float, "name": str, "tla": str, "price": float }
+    master_results = {}
+    for race_id in range(1, num_races + 1):
+        master_results[race_id] = {}
+        for d_id, drv in mock_drivers.items():
+            master_results[race_id][d_id] = {
+                "points": float(random.randint(2, 45)),
+                "name": drv["name"],
+                "tla": drv["tla"],
+                "price": drv["price"]
+            }
+        for c_id, const in mock_constructors.items():
+            master_results[race_id][c_id] = {
+                "points": float(random.randint(10, 60)),
+                "name": const["name"],
+                "tla": "",
+                "price": const["price"]
+            }
+
     for i, p_info in enumerate(players_info):
         guid = f"mock-user-{i+1}"
         history = []
@@ -130,7 +149,12 @@ def generate_mock_data():
                 race_used = random.randint(1, num_races)
                 chip_usage[race_used] = chip
                 used_chips.append({"chip": chip, "race_id": race_used})
-
+        
+        # Keep track of active base team for reversion logic or transfer count
+        # In F1 Fantasy, after limitless, the team reverts.
+        # So we keep a base roster.
+        base_drivers = list(driver_ids)
+        base_constructors = list(constructor_ids)
         
         for race_id in range(1, num_races + 1):
             # Simulate slight changes in budget/value from race to race
@@ -141,30 +165,56 @@ def generate_mock_data():
             current_budget = round(max(99.0, current_budget + budget_change), 1)
             current_team_val = round(current_team_val + val_change, 1)
             
-            # Simulate roster changes (1 transfer in 50% of races)
-            if race_id > 1 and random.random() > 0.5:
-                # remove one driver, add another
-                old_drv = driver_ids.pop(0)
-                new_drv = random.choice([d for d in mock_drivers.keys() if d not in driver_ids])
-                driver_ids.append(new_drv)
-                
-            # Score points
-            base_score = random.randint(180, 320)
-            # Add multiplier if limitless chip is active
             active_chip = chip_usage.get(race_id, None)
-            if active_chip == "limitless":
-                base_score = int(base_score * 1.4)
-            elif active_chip == "no_negative":
-                base_score += random.randint(20, 50)
-                
-            cumulative_points += base_score
             
-            # Roster details for this race
+            # Simulate roster changes
+            trades_made = 0
+            if race_id > 1:
+                # To simulate excessive trades, let some players make up to 4 trades
+                # Alice (i=0) is very active: lots of trades
+                # Bob (i=1) is stable: <= 2 trades
+                if i % 3 == 0:
+                    num_trades = random.randint(2, 5) # often excessive
+                elif i % 3 == 1:
+                    num_trades = random.randint(0, 2) # safe
+                else:
+                    num_trades = random.randint(0, 3) # sometimes excessive
+                
+                # Apply trades to driver_ids / constructor_ids
+                for _ in range(num_trades):
+                    # We swap either a driver (80% chance) or a constructor (20% chance)
+                    if random.random() > 0.2 and len(driver_ids) > 0:
+                        old_drv = driver_ids.pop(random.randint(0, len(driver_ids) - 1))
+                        available_drivers = [d for d in mock_drivers.keys() if d not in driver_ids]
+                        if available_drivers:
+                            new_drv = random.choice(available_drivers)
+                            driver_ids.append(new_drv)
+                            trades_made += 1
+                    elif len(constructor_ids) > 0:
+                        old_const = constructor_ids.pop(random.randint(0, len(constructor_ids) - 1))
+                        available_consts = [c for c in mock_constructors.keys() if c not in constructor_ids]
+                        if available_consts:
+                            new_const = random.choice(available_consts)
+                            constructor_ids.append(new_const)
+                            trades_made += 1
+
+            # Calculate penalty points
+            penalty = 0
+            if race_id > 1 and active_chip not in ["wildcard", "limitless"]:
+                # How many transfers compared to base team?
+                # base team represents the team before this race's transfers
+                drv_transfers = len([d for d in base_drivers if d not in driver_ids])
+                const_transfers = len([c for c in base_constructors if c not in constructor_ids])
+                total_transfers = drv_transfers + const_transfers
+                penalty = max(0, (total_transfers - 2) * 10)
+            
+            # Score points from master results
             drivers_roster = []
             captain_id = driver_ids[0]
             for d_id in driver_ids:
                 drv = mock_drivers[d_id]
-                points_scored = random.randint(2, 45)
+                drv_master = master_results[race_id][d_id]
+                points_scored = drv_master["points"]
                 if d_id == captain_id:
                     points_scored *= 2
                 
@@ -182,18 +232,29 @@ def generate_mock_data():
             constructors_roster = []
             for c_id in constructor_ids:
                 const = mock_constructors[c_id]
+                const_master = master_results[race_id][c_id]
                 constructors_roster.append({
                     "id": c_id,
                     "name": const["name"],
                     "price_at_race": const["price"],
-                    "points": random.randint(10, 60)
+                    "points": const_master["points"]
                 })
                 
+            # Base score is the sum of points of roster, minus penalty
+            team_points_sum = sum(d["points"] for d in drivers_roster) + sum(c["points"] for c in constructors_roster)
+            if active_chip == "limitless":
+                team_points_sum = int(team_points_sum * 1.4)
+            elif active_chip == "no_negative":
+                team_points_sum += random.randint(20, 50)
+            
+            points_gained = team_points_sum - penalty
+            cumulative_points += points_gained
+            
             history.append({
                 "race_id": race_id,
                 "race_name": RACE_NAMES[race_id],
-                "points_gained": base_score,
-                "total_points": cumulative_points,
+                "points_gained": float(points_gained),
+                "total_points": float(cumulative_points),
                 "rank_in_league": 1, # Will calculate ranks later
                 "budget": current_budget,
                 "team_value": current_team_val,
@@ -203,6 +264,15 @@ def generate_mock_data():
                     "constructors": constructors_roster
                 }
             })
+            
+            # Update base team for next race's comparison
+            if active_chip != "limitless":
+                base_drivers = list(driver_ids)
+                base_constructors = list(constructor_ids)
+            else:
+                # Revert roster back to the base team
+                driver_ids = list(base_drivers)
+                constructor_ids = list(base_constructors)
             
         players_data.append({
             "guid": guid,
@@ -524,13 +594,26 @@ def scrape_f1_data():
     for rank_idx, player in enumerate(players_data):
         player["rank"] = rank_idx + 1
         
+    # Build master results
+    master_results = {}
+    for r_id, feed_map in race_feeds.items():
+        master_results[r_id] = {}
+        for p_id, item in feed_map.items():
+            master_results[r_id][p_id] = {
+                "points": float(item.get("GamedayPoints", 0.0)) if item.get("GamedayPoints") else 0.0,
+                "name": urllib.parse.unquote(item.get("FUllName", "")),
+                "tla": item.get("DriverTLA", ""),
+                "price": item.get("Value", 0.0)
+            }
+
     # Compile output data structure
     output_data = {
         "last_updated": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
         "league_name": league_name,
         "league_id": LEAGUE_ID,
         "current_race_id": max_race_id,
-        "players": players_data
+        "players": players_data,
+        "master_results": master_results
     }
     
     # Ensure directory exists

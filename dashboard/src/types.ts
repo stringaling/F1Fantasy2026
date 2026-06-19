@@ -50,10 +50,19 @@ export interface Player {
   history: RaceHistory[];
 }
 
+export interface MasterResult {
+  points: number;
+  name: string;
+  tla: string;
+  price: number;
+}
+
 export interface F1FantasyData {
   last_updated: string;
   league_name: string;
   league_id: string;
   current_race_id: number;
   players: Player[];
+  master_results: Record<string, Record<string, MasterResult>>;
 }
+

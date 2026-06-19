@@ -7,7 +7,7 @@ import {
   Info,
   Clock
 } from 'lucide-react';
-import type { F1FantasyData, Player, RaceHistory } from './types';
+import type { F1FantasyData, Player, RaceHistory, MasterResult } from './types';
 
 const chipLabels: Record<string, string> = {
   wildcard: 'WIL',
@@ -26,6 +26,146 @@ const chipNames: Record<string, string> = {
   no_negative: 'No Negative',
   extra_drs: 'Extra DRS (3x)'
 };
+
+interface PlayerTradeStats {
+  totalTrades: number;
+  totalPenaltyPoints: number;
+  totalSmartManagerGain: number;
+  historyStats: {
+    race_id: number;
+    tradesMade: number;
+    penaltyPoints: number;
+    netTradeGain: number;
+  }[];
+}
+
+function calculatePlayerTradeStats(
+  player: Player,
+  masterResults: Record<string, Record<string, MasterResult>>
+): PlayerTradeStats {
+  let totalTrades = 0;
+  let totalPenaltyPoints = 0;
+  let totalSmartManagerGain = 0;
+  const historyStats: PlayerTradeStats['historyStats'] = [];
+
+  if (!player.history || player.history.length === 0) {
+    return { totalTrades, totalPenaltyPoints, totalSmartManagerGain, historyStats };
+  }
+
+  // Base team starts as the team from the first race in history
+  let baseDrivers = [...player.history[0].team.drivers];
+  let baseConstructors = [...player.history[0].team.constructors];
+
+  // For race 1, stats are 0
+  historyStats.push({
+    race_id: player.history[0].race_id,
+    tradesMade: 0,
+    penaltyPoints: 0,
+    netTradeGain: 0,
+  });
+
+  // Loop through subsequent races
+  for (let i = 1; i < player.history.length; i++) {
+    const raceHistory = player.history[i];
+    const raceId = raceHistory.race_id;
+    const activeChip = raceHistory.active_chip;
+
+    const currentDrivers = raceHistory.team.drivers;
+    const currentConstructors = raceHistory.team.constructors;
+
+    // If selection is unlocked / not loaded yet, skip calculations for this race
+    if (currentDrivers.length === 0 && currentConstructors.length === 0) {
+      historyStats.push({
+        race_id: raceId,
+        tradesMade: 0,
+        penaltyPoints: 0,
+        netTradeGain: 0,
+      });
+      continue;
+    }
+
+    // Count driver transfers: drivers in baseDrivers that are not in currentDrivers
+    const baseDriverIds = new Set(baseDrivers.map(d => d.id));
+    const currentDriverIds = new Set(currentDrivers.map(d => d.id));
+    let driverTransfers = 0;
+    baseDriverIds.forEach(id => {
+      if (!currentDriverIds.has(id)) {
+        driverTransfers++;
+      }
+    });
+
+    // Count constructor transfers: constructors in baseConstructors that are not in currentConstructors
+    const baseConstructorIds = new Set(baseConstructors.map(c => c.id));
+    const currentConstructorIds = new Set(currentConstructors.map(c => c.id));
+    let constructorTransfers = 0;
+    baseConstructorIds.forEach(id => {
+      if (!currentConstructorIds.has(id)) {
+        constructorTransfers++;
+      }
+    });
+
+    const tradesMade = driverTransfers + constructorTransfers;
+
+    // Calculate penalty points
+    let penaltyPoints = 0;
+    if (activeChip !== 'wildcard' && activeChip !== 'limitless') {
+      penaltyPoints = Math.max(0, (tradesMade - 2) * 10);
+    }
+
+    // Calculate actual score before penalty
+    const actualScoreBeforePenalty = currentDrivers.reduce((sum, d) => sum + d.points, 0) + 
+                                     currentConstructors.reduce((sum, c) => sum + c.points, 0);
+
+    // Calculate what the unchanged base team would have scored in this race
+    let unchangedScore = 0;
+    const raceResults = masterResults?.[raceId.toString()];
+
+    if (raceResults) {
+      baseDrivers.forEach(d => {
+        const result = raceResults[d.id];
+        const rawPoints = result ? result.points : 0;
+        let points = rawPoints;
+        if (d.is_captain) points *= 2;
+        if (d.is_triple_captain) points *= 3;
+        unchangedScore += points;
+      });
+
+      baseConstructors.forEach(c => {
+        const result = raceResults[c.id];
+        const rawPoints = result ? result.points : 0;
+        unchangedScore += rawPoints;
+      });
+    } else {
+      unchangedScore = actualScoreBeforePenalty;
+    }
+
+    const netTradeGain = actualScoreBeforePenalty - unchangedScore - penaltyPoints;
+
+    historyStats.push({
+      race_id: raceId,
+      tradesMade,
+      penaltyPoints,
+      netTradeGain,
+    });
+
+    totalTrades += tradesMade;
+    totalPenaltyPoints += penaltyPoints;
+    totalSmartManagerGain += netTradeGain;
+
+    // Update base team for next race's comparison
+    if (activeChip !== 'limitless') {
+      baseDrivers = [...currentDrivers];
+      baseConstructors = [...currentConstructors];
+    }
+  }
+
+  return {
+    totalTrades,
+    totalPenaltyPoints,
+    totalSmartManagerGain,
+    historyStats,
+  };
+}
 
 function App() {
   const [data, setData] = useState<F1FantasyData | null>(null);
@@ -91,6 +231,12 @@ function App() {
     );
   }
 
+  // Pre-calculate trade stats for all players
+  const playerTradeStatsMap = new Map<string, PlayerTradeStats>();
+  data.players.forEach(player => {
+    playerTradeStatsMap.set(player.guid, calculatePlayerTradeStats(player, data.master_results));
+  });
+
   // Filter and Sort players
   const filteredPlayers = data.players
     .filter(player => {
@@ -115,6 +261,22 @@ function App() {
   const getHighestBudget = () => [...data.players].sort((a, b) => b.current_budget - a.current_budget)[0];
   const getChipsKing = () => [...data.players].sort((a, b) => b.chips_used.length - a.chips_used.length)[0];
 
+  const getSmartManager = () => {
+    return [...data.players].sort((a, b) => {
+      const statsA = playerTradeStatsMap.get(a.guid);
+      const statsB = playerTradeStatsMap.get(b.guid);
+      return (statsB?.totalSmartManagerGain ?? 0) - (statsA?.totalSmartManagerGain ?? 0);
+    })[0];
+  };
+
+  const getMicromanager = () => {
+    return [...data.players].sort((a, b) => {
+      const statsA = playerTradeStatsMap.get(a.guid);
+      const statsB = playerTradeStatsMap.get(b.guid);
+      return (statsB?.totalPenaltyPoints ?? 0) - (statsA?.totalPenaltyPoints ?? 0);
+    })[0];
+  };
+
   // Helper to format timestamps nicely
   const formatTime = (isoString: string) => {
     try {
@@ -124,9 +286,6 @@ function App() {
       return isoString;
     }
   };
-
-  const activeHistory: RaceHistory | undefined = selectedPlayer?.history.find(h => h.race_id === selectedRaceId);
-
   return (
     <div className="app-container">
       {/* Header */}
@@ -306,6 +465,42 @@ function App() {
                 </div>
               </div>
             )}
+
+            {/* Smart Manager */}
+            {getSmartManager() && (() => {
+              const smPlayer = getSmartManager();
+              const smStats = playerTradeStatsMap.get(smPlayer.guid);
+              return (
+                <div className="glass-card leader-card" style={{ marginTop: '1rem', border: '1px solid rgba(79, 209, 197, 0.2)' }}>
+                  <div className="leader-trophy">🧠</div>
+                  <div>
+                    <p style={{ color: '#4fd1c5', fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase' }}>Smart Manager</p>
+                    <h3 style={{ fontSize: '1.15rem', fontWeight: 700 }}>{smPlayer.player_name}</h3>
+                    <p style={{ fontSize: '0.9rem', color: '#a0aec0' }}>
+                      Net Trade Gain: <strong style={{ color: '#4fd1c5' }}>+{smStats?.totalSmartManagerGain ?? 0} pts</strong>
+                    </p>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Micromanager */}
+            {getMicromanager() && (() => {
+              const mmPlayer = getMicromanager();
+              const mmStats = playerTradeStatsMap.get(mmPlayer.guid);
+              return (
+                <div className="glass-card leader-card" style={{ marginTop: '1rem', border: '1px solid rgba(229, 62, 62, 0.2)' }}>
+                  <div className="leader-trophy">🚨</div>
+                  <div>
+                    <p style={{ color: '#fc8181', fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase' }}>Micromanager</p>
+                    <h3 style={{ fontSize: '1.15rem', fontWeight: 700 }}>{mmPlayer.player_name}</h3>
+                    <p style={{ fontSize: '0.9rem', color: '#a0aec0' }}>
+                      Penalty Points: <strong style={{ color: '#fc8181' }}>-{mmStats?.totalPenaltyPoints ?? 0} pts</strong> ({mmStats?.totalTrades ?? 0} trades)
+                    </p>
+                  </div>
+                </div>
+              );
+            })()}
           </div>
 
           {/* Quick FAQ / Info */}
@@ -325,222 +520,259 @@ function App() {
       </div>
 
       {/* Player Detail Overlay Modal */}
-      {selectedPlayer && (
-        <div className="modal-overlay" onClick={() => setSelectedPlayer(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close-btn" onClick={() => setSelectedPlayer(null)}>
-              <X size={20} />
-            </button>
+      {/* Player Detail Overlay Modal */}
+      {selectedPlayer && (() => {
+        const selectedPlayerStats = playerTradeStatsMap.get(selectedPlayer.guid);
+        const activeHistory: RaceHistory | undefined = selectedPlayer.history.find(h => h.race_id === selectedRaceId);
+        
+        return (
+          <div className="modal-overlay" onClick={() => setSelectedPlayer(null)}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <button className="modal-close-btn" onClick={() => setSelectedPlayer(null)}>
+                <X size={20} />
+              </button>
 
-            {/* Modal Header */}
-            <div className="player-detail-header">
-              <div className="player-detail-title">
-                <h2>{selectedPlayer.player_name}</h2>
-                <p>Team: <strong style={{ color: '#fff' }}>{selectedPlayer.team_name}</strong></p>
-              </div>
-              <div className="player-detail-meta">
-                <div className="points-display">
-                  <span className="points-val" style={{ fontSize: '1.8rem' }}>#{selectedPlayer.rank}</span>
-                  <span className="points-label">League Rank</span>
+              {/* Modal Header */}
+              <div className="player-detail-header">
+                <div className="player-detail-title">
+                  <h2>{selectedPlayer.player_name}</h2>
+                  <p>Team: <strong style={{ color: '#fff' }}>{selectedPlayer.team_name}</strong></p>
                 </div>
-                <div className="points-display">
-                  <span className="points-val" style={{ fontSize: '1.8rem' }}>{selectedPlayer.total_points.toLocaleString()}</span>
-                  <span className="points-label">Total Points</span>
-                </div>
-                <div className="points-display">
-                  <span className="points-val" style={{ fontSize: '1.8rem' }}>${selectedPlayer.current_budget.toFixed(1)}M</span>
-                  <span className="points-label">Budget</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Progression & Timeline Section */}
-            <div className="progression-section">
-              {/* Left Column: Budget and Value Progression */}
-              <div className="glass-card">
-                <h3 className="modal-section-title" style={{ marginTop: 0 }}>Financial Progression</h3>
-                <div className="progression-table-container">
-                  <table className="progression-table">
-                    <thead>
-                      <tr>
-                        <th>GP Event</th>
-                        <th>Points</th>
-                        <th>Rank</th>
-                        <th>Budget</th>
-                        <th>Team Value</th>
-                        <th>Chip Played</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {selectedPlayer.history.map((h, index) => {
-                        const prev = index > 0 ? selectedPlayer.history[index - 1] : null;
-                        const budgetDiff = prev ? h.budget - prev.budget : 0;
-                        const teamValDiff = prev ? h.team_value - prev.team_value : 0;
-
-                        return (
-                          <tr key={h.race_id}>
-                            <td style={{ fontWeight: 600 }}>{h.race_name}</td>
-                            <td>{h.points_gained} <span style={{ fontSize: '0.75rem', color: '#718096' }}>({h.total_points})</span></td>
-                            <td>#{h.rank_in_league}</td>
-                            <td>
-                              ${h.budget.toFixed(1)}M
-                              {budgetDiff > 0 && <span className="trend-up" style={{ fontSize: '0.8rem', marginLeft: '3px' }}>▲</span>}
-                              {budgetDiff < 0 && <span className="trend-down" style={{ fontSize: '0.8rem', marginLeft: '3px' }}>▼</span>}
-                            </td>
-                            <td>
-                              ${h.team_value.toFixed(1)}M
-                              {teamValDiff > 0 && <span className="trend-up" style={{ fontSize: '0.8rem', marginLeft: '3px' }}>▲</span>}
-                              {teamValDiff < 0 && <span className="trend-down" style={{ fontSize: '0.8rem', marginLeft: '3px' }}>▼</span>}
-                            </td>
-                            <td>
-                              {h.active_chip ? (
-                                <span className={`chip-badge used ${h.active_chip}`} style={{ fontSize: '0.65rem' }}>
-                                  {h.active_chip.replace('_', ' ')}
-                                </span>
-                              ) : '-'}
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
+                <div className="player-detail-meta">
+                  <div className="points-display">
+                    <span className="points-val" style={{ fontSize: '1.8rem' }}>#{selectedPlayer.rank}</span>
+                    <span className="points-label">League Rank</span>
+                  </div>
+                  <div className="points-display">
+                    <span className="points-val" style={{ fontSize: '1.8rem' }}>{selectedPlayer.total_points.toLocaleString()}</span>
+                    <span className="points-label">Total Points</span>
+                  </div>
+                  <div className="points-display">
+                    <span className="points-val" style={{ fontSize: '1.8rem' }}>${selectedPlayer.current_budget.toFixed(1)}M</span>
+                    <span className="points-label">Budget</span>
+                  </div>
+                  <div className="points-display">
+                    <span className="points-val" style={{ fontSize: '1.8rem' }}>{selectedPlayerStats?.totalTrades ?? 0}</span>
+                    <span className="points-label">Total Trades</span>
+                  </div>
+                  <div className="points-display">
+                    <span className="points-val" style={{ fontSize: '1.8rem', color: (selectedPlayerStats?.totalPenaltyPoints ?? 0) > 0 ? '#fc8181' : '#fff' }}>
+                      -{selectedPlayerStats?.totalPenaltyPoints ?? 0}
+                    </span>
+                    <span className="points-label">Penalty Pts</span>
+                  </div>
                 </div>
               </div>
 
-              {/* Right Column: Chips usage timeline */}
-              <div className="glass-card">
-                <h3 className="modal-section-title" style={{ marginTop: 0 }}>Chips Summary</h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  {['wildcard', 'limitless', 'autopilot', 'final_fix', 'no_negative', 'extra_drs'].map(chip => {
-                    const usage = selectedPlayer.chips_used.find(c => c.chip === chip);
-                    const isUsed = !!usage;
-                    const usedRace = usage ? selectedPlayer.history.find(h => h.race_id === usage.race_id) : null;
+              {/* Progression & Timeline Section */}
+              <div className="progression-section">
+                {/* Left Column: Season Progression */}
+                <div className="glass-card">
+                  <h3 className="modal-section-title" style={{ marginTop: 0 }}>Season Progression</h3>
+                  <div className="progression-table-container">
+                    <table className="progression-table">
+                      <thead>
+                        <tr>
+                          <th>GP Event</th>
+                          <th>Points</th>
+                          <th>Rank</th>
+                          <th>Budget</th>
+                          <th>Team Value</th>
+                          <th>Trades</th>
+                          <th>Penalty</th>
+                          <th>Chip</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {selectedPlayer.history.map((h, index) => {
+                          const prev = index > 0 ? selectedPlayer.history[index - 1] : null;
+                          const budgetDiff = prev ? h.budget - prev.budget : 0;
+                          const teamValDiff = prev ? h.team_value - prev.team_value : 0;
+                          const gpStats = selectedPlayerStats?.historyStats.find(s => s.race_id === h.race_id);
 
-                    return (
-                      <div 
-                        key={chip} 
-                        style={{ 
-                          display: 'flex', 
-                          justifyContent: 'space-between', 
-                          alignItems: 'center', 
-                          padding: '0.75rem', 
-                          background: 'rgba(255,255,255,0.02)', 
-                          borderRadius: '8px',
-                          border: '1px solid rgba(255,255,255,0.05)'
-                        }}
-                      >
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <span className={`chip-badge ${isUsed ? 'used' : ''} ${chip}`} style={{ fontSize: '0.7rem' }}>
-                            {chipNames[chip] || chip.replace('_', ' ')}
+                          return (
+                            <tr key={h.race_id}>
+                              <td style={{ fontWeight: 600 }}>{h.race_name}</td>
+                              <td>{h.points_gained} <span style={{ fontSize: '0.75rem', color: '#718096' }}>({h.total_points})</span></td>
+                              <td>#{h.rank_in_league}</td>
+                              <td>
+                                ${h.budget.toFixed(1)}M
+                                {budgetDiff > 0 && <span className="trend-up" style={{ fontSize: '0.8rem', marginLeft: '3px' }}>▲</span>}
+                                {budgetDiff < 0 && <span className="trend-down" style={{ fontSize: '0.8rem', marginLeft: '3px' }}>▼</span>}
+                              </td>
+                              <td>
+                                ${h.team_value.toFixed(1)}M
+                                {teamValDiff > 0 && <span className="trend-up" style={{ fontSize: '0.8rem', marginLeft: '3px' }}>▲</span>}
+                                {teamValDiff < 0 && <span className="trend-down" style={{ fontSize: '0.8rem', marginLeft: '3px' }}>▼</span>}
+                              </td>
+                              <td>{gpStats ? gpStats.tradesMade : 0}</td>
+                              <td style={{ color: gpStats && gpStats.penaltyPoints > 0 ? '#fc8181' : '#a0aec0', fontWeight: gpStats && gpStats.penaltyPoints > 0 ? 600 : 400 }}>
+                                {gpStats && gpStats.penaltyPoints > 0 ? `-${gpStats.penaltyPoints}` : '-'}
+                              </td>
+                              <td>
+                                {h.active_chip ? (
+                                  <span className={`chip-badge used ${h.active_chip}`} style={{ fontSize: '0.65rem' }}>
+                                    {h.active_chip.replace('_', ' ')}
+                                  </span>
+                                ) : '-'}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* Right Column: Chips usage timeline */}
+                <div className="glass-card">
+                  <h3 className="modal-section-title" style={{ marginTop: 0 }}>Chips Summary</h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    {['wildcard', 'limitless', 'autopilot', 'final_fix', 'no_negative', 'extra_drs'].map(chip => {
+                      const usage = selectedPlayer.chips_used.find(c => c.chip === chip);
+                      const isUsed = !!usage;
+                      const usedRace = usage ? selectedPlayer.history.find(h => h.race_id === usage.race_id) : null;
+
+                      return (
+                        <div 
+                          key={chip} 
+                          style={{ 
+                            display: 'flex', 
+                            justifyContent: 'space-between', 
+                            alignItems: 'center', 
+                            padding: '0.75rem', 
+                            background: 'rgba(255,255,255,0.02)', 
+                            borderRadius: '8px',
+                            border: '1px solid rgba(255,255,255,0.05)'
+                          }}
+                        >
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span className={`chip-badge ${isUsed ? 'used' : ''} ${chip}`} style={{ fontSize: '0.7rem' }}>
+                              {chipNames[chip] || chip.replace('_', ' ')}
+                            </span>
+                          </div>
+                          <span style={{ fontSize: '0.85rem', color: isUsed ? '#fff' : '#718096' }}>
+                            {isUsed && usedRace ? `Used at ${usedRace.race_name}` : 'Not used yet'}
                           </span>
                         </div>
-                        <span style={{ fontSize: '0.85rem', color: isUsed ? '#fff' : '#718096' }}>
-                          {isUsed && usedRace ? `Used at ${usedRace.race_name}` : 'Not used yet'}
-                        </span>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Roster Selection History Section */}
-            <h3 className="modal-section-title">Team Roster History</h3>
-            
-            {/* Race selector tabs */}
-            <div className="race-tabs">
-              {selectedPlayer.history.map(h => (
-                <button
-                  key={h.race_id}
-                  className={`race-tab ${selectedRaceId === h.race_id ? 'active' : ''}`}
-                  onClick={() => setSelectedRaceId(h.race_id)}
-                >
-                  {h.race_name}
-                </button>
-              ))}
-            </div>
-
-            {/* Roster cards */}
-            {activeHistory ? (
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', color: '#a0aec0', fontSize: '0.9rem' }}>
-                  <span>Roster value: <strong>${activeHistory.team_value.toFixed(1)}M</strong></span>
-                  <span>Roster budget: <strong>${activeHistory.budget.toFixed(1)}M</strong></span>
-                  {activeHistory.active_chip && (
-                    <span style={{ color: '#fff' }}>Active Chip: <strong style={{ color: '#e10600', textTransform: 'uppercase' }}>{activeHistory.active_chip.replace('_', ' ')}</strong></span>
-                  )}
-                </div>
-                
-                {/* Roster Grid or Hidden Placeholder */}
-                {activeHistory.team.drivers.length === 0 && activeHistory.team.constructors.length === 0 ? (
-                  <div style={{ 
-                    textAlign: 'center', 
-                    padding: '3rem 2rem', 
-                    background: 'rgba(255,255,255,0.01)', 
-                    borderRadius: '12px', 
-                    border: '1px dashed rgba(255,255,255,0.1)', 
-                    color: '#a0aec0',
-                    margin: '1.5rem 0'
-                  }}>
-                    <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>🔒 Roster Selection Unlocked</div>
-                    <p style={{ fontSize: '0.9rem', color: '#718096' }}>This team roster is hidden for privacy until selection locks at the race start.</p>
-                  </div>
-                ) : (
-                  <div className="roster-grid">
-                    {/* Drivers */}
-                    {activeHistory.team.drivers.map(drv => (
-                      <div key={drv.id} className="roster-card driver-card">
-                        {drv.is_captain && <span className="card-captain-badge">CAPTAIN</span>}
-                        {drv.is_triple_captain && <span className="card-triple-captain-badge">3X CAPTAIN</span>}
-                        
-                        <div className="card-header-row">
-                          <div>
-                            <div className="roster-item-name">{drv.name}</div>
-                            <div className="roster-item-team">{drv.team}</div>
-                          </div>
-                          <span className="driver-tla-badge">{drv.tla}</span>
-                        </div>
-                        
-                        <div className="card-footer-row">
-                          <span className="roster-item-price">${drv.price_at_race.toFixed(1)}M</span>
-                          <div style={{ textAlign: 'right' }}>
-                            <span className="points-label" style={{ fontSize: '0.65rem' }}>GP Points</span>
-                            <div className="roster-item-pts">{drv.points}</div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-
-                    {/* Constructors */}
-                    {activeHistory.team.constructors.map(c => (
-                      <div key={c.id} className="roster-card constructor-card">
-                        <div className="card-header-row">
-                          <div>
-                            <div className="roster-item-name">{c.name}</div>
-                            <div className="roster-item-team">Constructor</div>
-                          </div>
-                          <span className="driver-tla-badge" style={{ background: 'rgba(49, 130, 206, 0.15)', color: '#63b3ed' }}>CSTR</span>
-                        </div>
-                        
-                        <div className="card-footer-row">
-                          <span className="roster-item-price">${c.price_at_race.toFixed(1)}M</span>
-                          <div style={{ textAlign: 'right' }}>
-                            <span className="points-label" style={{ fontSize: '0.65rem' }}>GP Points</span>
-                            <div className="roster-item-pts">{c.points}</div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
+              {/* Roster Selection History Section */}
+              <h3 className="modal-section-title">Team Roster History</h3>
+              
+              {/* Race selector tabs */}
+              <div className="race-tabs">
+                {selectedPlayer.history.map(h => (
+                  <button
+                    key={h.race_id}
+                    className={`race-tab ${selectedRaceId === h.race_id ? 'active' : ''}`}
+                    onClick={() => setSelectedRaceId(h.race_id)}
+                  >
+                    {h.race_name}
+                  </button>
+                ))}
               </div>
-            ) : (
-              <p style={{ color: '#718096', fontStyle: 'italic' }}>No roster details loaded for this GP.</p>
-            )}
 
+              {/* Roster cards */}
+              {activeHistory ? (() => {
+                const activeGPStats = selectedPlayerStats?.historyStats.find(h => h.race_id === selectedRaceId);
+                return (
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem 1.5rem', marginBottom: '1rem', color: '#a0aec0', fontSize: '0.9rem' }}>
+                      <span>Roster value: <strong style={{ color: '#fff' }}>${activeHistory.team_value.toFixed(1)}M</strong></span>
+                      <span>Roster budget: <strong style={{ color: '#fff' }}>${activeHistory.budget.toFixed(1)}M</strong></span>
+                      {activeHistory.active_chip && (
+                        <span>Active Chip: <strong style={{ color: '#e10600', textTransform: 'uppercase' }}>{activeHistory.active_chip.replace('_', ' ')}</strong></span>
+                      )}
+                      {selectedRaceId > 1 && activeGPStats && (
+                        <>
+                          <span>Trades: <strong style={{ color: '#fff' }}>{activeGPStats.tradesMade}</strong></span>
+                          {activeGPStats.penaltyPoints > 0 && (
+                            <span style={{ color: '#fc8181' }}>Penalty: <strong style={{ color: '#fc8181' }}>-{activeGPStats.penaltyPoints} pts</strong></span>
+                          )}
+                          <span>Trade Net Gain: <strong style={{ color: activeGPStats.netTradeGain > 0 ? '#4fd1c5' : activeGPStats.netTradeGain < 0 ? '#fc8181' : '#fff' }}>
+                            {activeGPStats.netTradeGain > 0 ? `+${activeGPStats.netTradeGain}` : activeGPStats.netTradeGain} pts
+                          </strong></span>
+                        </>
+                      )}
+                    </div>
+                    
+                    {/* Roster Grid or Hidden Placeholder */}
+                    {activeHistory.team.drivers.length === 0 && activeHistory.team.constructors.length === 0 ? (
+                      <div style={{ 
+                        textAlign: 'center', 
+                        padding: '3rem 2rem', 
+                        background: 'rgba(255,255,255,0.01)', 
+                        borderRadius: '12px', 
+                        border: '1px dashed rgba(255,255,255,0.1)', 
+                        color: '#a0aec0',
+                        margin: '1.5rem 0'
+                      }}>
+                        <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>🔒 Roster Selection Unlocked</div>
+                        <p style={{ fontSize: '0.9rem', color: '#718096' }}>This team roster is hidden for privacy until selection locks at the race start.</p>
+                      </div>
+                    ) : (
+                      <div className="roster-grid">
+                        {/* Drivers */}
+                        {activeHistory.team.drivers.map(drv => (
+                          <div key={drv.id} className="roster-card driver-card">
+                            {drv.is_captain && <span className="card-captain-badge">CAPTAIN</span>}
+                            {drv.is_triple_captain && <span className="card-triple-captain-badge">3X CAPTAIN</span>}
+                            
+                            <div className="card-header-row">
+                              <div>
+                                <div className="roster-item-name">{drv.name}</div>
+                                <div className="roster-item-team">{drv.team}</div>
+                              </div>
+                              <span className="driver-tla-badge">{drv.tla}</span>
+                            </div>
+                            
+                            <div className="card-footer-row">
+                              <span className="roster-item-price">${drv.price_at_race.toFixed(1)}M</span>
+                              <div style={{ textAlign: 'right' }}>
+                                <span className="points-label" style={{ fontSize: '0.65rem' }}>GP Points</span>
+                                <div className="roster-item-pts">{drv.points}</div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+
+                        {/* Constructors */}
+                        {activeHistory.team.constructors.map(c => (
+                          <div key={c.id} className="roster-card constructor-card">
+                            <div className="card-header-row">
+                              <div>
+                                <div className="roster-item-name">{c.name}</div>
+                                <div className="roster-item-team">Constructor</div>
+                              </div>
+                              <span className="driver-tla-badge" style={{ background: 'rgba(49, 130, 206, 0.15)', color: '#63b3ed' }}>CSTR</span>
+                            </div>
+                            
+                            <div className="card-footer-row">
+                              <span className="roster-item-price">${c.price_at_race.toFixed(1)}M</span>
+                              <div style={{ textAlign: 'right' }}>
+                                <span className="points-label" style={{ fontSize: '0.65rem' }}>GP Points</span>
+                                <div className="roster-item-pts">{c.points}</div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })() : (
+                <p style={{ color: '#718096', fontStyle: 'italic' }}>No roster details loaded for this GP.</p>
+              )}
+
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
     </div>
   );
 }
