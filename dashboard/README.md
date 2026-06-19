@@ -71,3 +71,10 @@ export default defineConfig([
   },
 ])
 ```
+
+## Deploying
+
+1. Deploy the dashboard:
+ - Navigate to the  dashboard  folder and run the deploy script:
+ - cd dashboard
+ - npm run deploy
