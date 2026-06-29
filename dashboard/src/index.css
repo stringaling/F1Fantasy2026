@@ -772,3 +772,100 @@ body {
   border-radius: 4px;
   transition: var(--transition-smooth);
 }
+
+/* Dropdown and Races Won Styles */
+.dropdown-wrapper {
+  position: relative;
+  flex-grow: 1;
+  max-width: 400px;
+}
+
+.race-dropdown {
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-glass);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: var(--transition-fast);
+  appearance: none;
+  cursor: pointer;
+}
+
+.race-dropdown:focus {
+  outline: none;
+  border-color: var(--f1-red);
+  box-shadow: 0 0 10px var(--f1-red-glow);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.race-dropdown option {
+  background-color: #1a1d26;
+  color: var(--text-primary);
+}
+
+.dropdown-wrapper::after {
+  content: '▼';
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  position: absolute;
+  right: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Overall vs Race Grid columns */
+.player-card.overall-view {
+  grid-template-columns: 60px 1.5fr 1fr 0.8fr 1.2fr 1fr;
+}
+
+.player-card.race-view {
+  grid-template-columns: 60px 1.5fr 1fr 1.2fr 1fr;
+}
+
+/* Races Won Display styles */
+.races-won-display {
+  display: flex;
+  flex-direction: column;
+}
+
+.races-won-val {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffd700;
+}
+
+.races-won-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+/* Active chip highlights in single race view */
+.chip-badge.active-now {
+  box-shadow: 0 0 10px var(--color-active, currentColor);
+  border: 1px solid #fff;
+  transform: scale(1.15);
+  animation: pulse-active 1.5s infinite alternate;
+}
+
+@keyframes pulse-active {
+  0% {
+    box-shadow: 0 0 4px var(--color-active, currentColor);
+  }
+  100% {
+    box-shadow: 0 0 12px var(--color-active, currentColor), 0 0 4px #fff;
+  }
+}
+
+.chip-badge.wildcard.active-now { --color-active: var(--color-wildcard); }
+.chip-badge.limitless.active-now { --color-active: var(--color-limitless); }
+.chip-badge.autopilot.active-now { --color-active: var(--color-autopilot); }
+.chip-badge.final_fix.active-now { --color-active: var(--color-final-fix); }
+.chip-badge.no_negative.active-now { --color-active: var(--color-no-negative); }
+.chip-badge.extra_drs.active-now { --color-active: var(--color-3x-booster); }

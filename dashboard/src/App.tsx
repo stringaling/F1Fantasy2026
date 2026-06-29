@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { 
-  Search, 
   TrendingUp, 
   TrendingDown, 
   X, 
@@ -167,11 +166,66 @@ function calculatePlayerTradeStats(
   };
 }
 
+function calculateRacesWon(players: Player[]): Record<string, number> {
+  const racesWon: Record<string, number> = {};
+  players.forEach(p => {
+    racesWon[p.guid] = 0;
+  });
+
+  const allRaceIds = Array.from(
+    new Set(players.flatMap(p => (p.history || []).map(h => h.race_id)))
+  );
+
+  allRaceIds.forEach(raceId => {
+    let maxPoints = -Infinity;
+    players.forEach(p => {
+      const h = p.history.find(entry => entry.race_id === raceId);
+      if (h && h.points_gained > maxPoints) {
+        maxPoints = h.points_gained;
+      }
+    });
+
+    if (maxPoints !== -Infinity) {
+      players.forEach(p => {
+        const h = p.history.find(entry => entry.race_id === raceId);
+        if (h && h.points_gained === maxPoints) {
+          racesWon[p.guid] = (racesWon[p.guid] || 0) + 1;
+        }
+      });
+    }
+  });
+
+  return racesWon;
+}
+
+function getRaceRank(players: Player[], raceId: number, playerGuid: string): number {
+  const scores = players.map(p => {
+    const h = p.history.find(entry => entry.race_id === raceId);
+    return {
+      guid: p.guid,
+      points: h ? h.points_gained : 0
+    };
+  });
+
+  scores.sort((a, b) => b.points - a.points);
+
+  let rank = 1;
+  for (let i = 0; i < scores.length; i++) {
+    if (i > 0 && scores[i].points < scores[i - 1].points) {
+      rank = i + 1;
+    }
+    if (scores[i].guid === playerGuid) {
+      return rank;
+    }
+  }
+  return rank;
+}
+
 function App() {
   const [data, setData] = useState<F1FantasyData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [viewRaceId, setViewRaceId] = useState<number | 'overall'>('overall');
   const [sortBy, setSortBy] = useState<'rank' | 'budget' | 'name'>('rank');
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
   const [selectedRaceId, setSelectedRaceId] = useState<number>(1);
@@ -199,11 +253,15 @@ function App() {
   // Update selected race when selected player changes
   useEffect(() => {
     if (selectedPlayer && selectedPlayer.history.length > 0) {
-      // Default to the latest completed race for this player
-      const maxRace = Math.max(...selectedPlayer.history.map(h => h.race_id));
-      setSelectedRaceId(maxRace);
+      if (viewRaceId !== 'overall') {
+        setSelectedRaceId(viewRaceId);
+      } else {
+        // Default to the latest completed race for this player
+        const maxRace = Math.max(...selectedPlayer.history.map(h => h.race_id));
+        setSelectedRaceId(maxRace);
+      }
     }
-  }, [selectedPlayer]);
+  }, [selectedPlayer, viewRaceId]);
 
   if (loading) {
     return (
@@ -237,24 +295,99 @@ function App() {
     playerTradeStatsMap.set(player.guid, calculatePlayerTradeStats(player, data.master_results));
   });
 
-  // Filter and Sort players
-  const filteredPlayers = data.players
-    .filter(player => {
-      const search = searchTerm.toLowerCase();
-      return (
-        player.player_name.toLowerCase().includes(search) ||
-        player.team_name.toLowerCase().includes(search)
-      );
-    })
-    .sort((a, b) => {
-      if (sortBy === 'rank') {
-        return a.rank - b.rank;
-      } else if (sortBy === 'budget') {
-        return b.current_budget - a.current_budget;
-      } else {
-        return a.player_name.localeCompare(b.player_name);
+  // Calculate races won (number of times topped the standings for each race)
+  const racesWonMap = calculateRacesWon(data.players);
+
+  // Get completed races from player history
+  const completedRaces = data.players[0]?.history.map(h => ({
+    id: h.race_id,
+    name: h.race_name
+  })) || [];
+
+  // Determine data per player depending on viewRaceId
+  const processedPlayers = data.players.map(player => {
+    if (viewRaceId === 'overall') {
+      const hasHistory = player.history.length > 1;
+      const latestRace = player.history[player.history.length - 1];
+      const prevRace = hasHistory ? player.history[player.history.length - 2] : null;
+      const budgetDiff = prevRace ? latestRace.budget - prevRace.budget : 0;
+
+      return {
+        guid: player.guid,
+        player_name: player.player_name,
+        team_name: player.team_name,
+        rank: player.rank, // overall rank
+        leagueRank: player.rank,
+        points: player.total_points,
+        budget: player.current_budget,
+        team_value: player.current_team_value,
+        budgetDiff,
+        chips_used: player.chips_used,
+        racesWon: racesWonMap[player.guid] || 0,
+        activeChip: null,
+        player, // reference to original player object
+      };
+    } else {
+      const raceHistory = player.history.find(h => h.race_id === viewRaceId);
+      const points = raceHistory ? raceHistory.points_gained : 0;
+      const budget = raceHistory ? raceHistory.budget : 100.0;
+      const team_value = raceHistory ? raceHistory.team_value : 100.0;
+      const activeChip = raceHistory ? raceHistory.active_chip : null;
+
+      // Rank in league after this race
+      const leagueRank = raceHistory ? raceHistory.rank_in_league : player.rank;
+
+      // Calculate budget difference compared to the race before this one
+      const currentRaceIndex = player.history.findIndex(h => h.race_id === viewRaceId);
+      const prevRaceHistory = currentRaceIndex > 0 ? player.history[currentRaceIndex - 1] : null;
+      const budgetDiff = prevRaceHistory ? budget - prevRaceHistory.budget : 0;
+
+      return {
+        guid: player.guid,
+        player_name: player.player_name,
+        team_name: player.team_name,
+        rank: 0, // calculated below dynamically
+        leagueRank,
+        points,
+        budget,
+        team_value,
+        budgetDiff,
+        chips_used: player.chips_used,
+        racesWon: 0, // not shown
+        activeChip,
+        player,
+      };
+    }
+  });
+
+  // Calculate dynamic rank for race-scoped view
+  if (viewRaceId !== 'overall') {
+    const sortedByPoints = [...processedPlayers].sort((a, b) => b.points - a.points);
+    let currentRank = 1;
+    sortedByPoints.forEach((p, index) => {
+      if (index > 0) {
+        const prevP = sortedByPoints[index - 1];
+        if (p.points < prevP.points) {
+          currentRank = index + 1;
+        }
+      }
+      const playerObj = processedPlayers.find(pl => pl.guid === p.guid);
+      if (playerObj) {
+        playerObj.rank = currentRank;
       }
     });
+  }
+
+  // Sort players
+  const sortedPlayers = processedPlayers.sort((a, b) => {
+    if (sortBy === 'rank') {
+      return a.rank - b.rank;
+    } else if (sortBy === 'budget') {
+      return b.budget - a.budget;
+    } else {
+      return a.player_name.localeCompare(b.player_name);
+    }
+  });
 
   // Calculate some fun insights for the sidebar
   const getLeader = () => data.players.find(p => p.rank === 1);
@@ -311,18 +444,24 @@ function App() {
         
         {/* Left Side: Leaderboard Column */}
         <section className="leaderboard-section">
-          
           {/* Controls */}
           <div className="controls-bar">
-            <div className="search-wrapper">
-              <Search className="search-icon" />
-              <input 
-                type="text" 
-                placeholder="Search players or teams..." 
-                className="search-input"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
+            <div className="dropdown-wrapper">
+              <select 
+                className="race-dropdown"
+                value={viewRaceId}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setViewRaceId(val === 'overall' ? 'overall' : Number(val));
+                }}
+              >
+                <option value="overall">Overall Standing</option>
+                {completedRaces.map(race => (
+                  <option key={race.id} value={race.id}>
+                    {race.name}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="filter-group">
               <span style={{ fontSize: '0.8rem', color: '#718096', alignSelf: 'center', marginRight: '0.5rem', fontWeight: 600 }}>SORT BY:</span>
@@ -330,7 +469,7 @@ function App() {
                 className={`filter-btn ${sortBy === 'rank' ? 'active' : ''}`}
                 onClick={() => setSortBy('rank')}
               >
-                League Rank
+                {viewRaceId === 'overall' ? 'League Rank' : 'Race Rank'}
               </button>
               <button 
                 className={`filter-btn ${sortBy === 'budget' ? 'active' : ''}`}
@@ -349,19 +488,14 @@ function App() {
 
           {/* List of Players */}
           <div className="leaderboard-list">
-            {filteredPlayers.map(player => {
-              // Find latest budget trend (compare last race to race before)
-              const hasHistory = player.history.length > 1;
-              const latestRace = player.history[player.history.length - 1];
-              const prevRace = hasHistory ? player.history[player.history.length - 2] : null;
-              
-              const budgetDiff = prevRace ? latestRace.budget - prevRace.budget : 0;
+            {sortedPlayers.map(player => {
+              const budgetDiff = player.budgetDiff;
 
               return (
                 <div 
                   key={player.guid} 
-                  className="glass-card player-card"
-                  onClick={() => setSelectedPlayer(player)}
+                  className={`glass-card player-card ${viewRaceId === 'overall' ? 'overall-view' : 'race-view'}`}
+                  onClick={() => setSelectedPlayer(player.player)}
                 >
                   {/* Rank */}
                   <div className="rank-badge">
@@ -372,26 +506,39 @@ function App() {
                   <div className="player-identity">
                     <span className="player-name">{player.player_name}</span>
                     <span className="team-name">{player.team_name}</span>
+                    {viewRaceId !== 'overall' && (
+                      <span style={{ fontSize: '0.75rem', color: '#718096', marginTop: '2px' }}>
+                        League Standing: <strong>#{player.leagueRank}</strong>
+                      </span>
+                    )}
                   </div>
 
                   {/* Points */}
                   <div className="points-display">
-                    <span className="points-val">{player.total_points.toLocaleString()}</span>
-                    <span className="points-label">PTS</span>
+                    <span className="points-val">{player.points.toLocaleString()}</span>
+                    <span className="points-label">{viewRaceId === 'overall' ? 'PTS' : 'GP PTS'}</span>
                   </div>
+
+                  {/* Races Won - only in Overall view */}
+                  {viewRaceId === 'overall' && (
+                    <div className="races-won-display hide-on-mobile">
+                      <span className="races-won-val">{player.racesWon}</span>
+                      <span className="races-won-label">Wins</span>
+                    </div>
+                  )}
 
                   {/* Budget details */}
                   <div className="budget-stats hide-on-mobile">
                     <div className="stat-item">
                       <span className="stat-val" style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
-                        ${player.current_budget.toFixed(1)}M
+                        ${player.budget.toFixed(1)}M
                         {budgetDiff > 0 && <TrendingUp size={12} className="trend-up" />}
                         {budgetDiff < 0 && <TrendingDown size={12} className="trend-down" />}
                       </span>
                       <span className="stat-label">Budget</span>
                     </div>
                     <div className="stat-item">
-                      <span className="stat-val">${player.current_team_value.toFixed(1)}M</span>
+                      <span className="stat-val">${player.team_value.toFixed(1)}M</span>
                       <span className="stat-label">Team Val</span>
                     </div>
                   </div>
@@ -399,12 +546,15 @@ function App() {
                   {/* Chips badges */}
                   <div className="chips-row hide-on-mobile">
                     {['wildcard', 'limitless', 'autopilot', 'final_fix', 'no_negative', 'extra_drs'].map(chip => {
-                      const isUsed = player.chips_used.some(c => c.chip === chip);
+                      const usage = player.chips_used.find(c => c.chip === chip);
+                      const isUsed = !!usage && (viewRaceId === 'overall' || usage.race_id <= viewRaceId);
+                      const isActiveInRace = !!usage && viewRaceId !== 'overall' && usage.race_id === viewRaceId;
+
                       return (
                         <span 
                           key={chip} 
-                          className={`chip-badge ${isUsed ? 'used' : ''} ${chip}`}
-                          title={`${chip.replace('_', ' ')}: ${isUsed ? 'Used' : 'Available'}`}
+                          className={`chip-badge ${isUsed ? 'used' : ''} ${isActiveInRace ? 'active-now' : ''} ${chip}`}
+                          title={`${chip.replace('_', ' ')}: ${isActiveInRace ? 'Active this GP!' : isUsed ? 'Used' : 'Available'}`}
                         >
                           {chipLabels[chip] || chip.substring(0, 3)}
                         </span>
@@ -415,9 +565,9 @@ function App() {
               );
             })}
 
-            {filteredPlayers.length === 0 && (
+            {sortedPlayers.length === 0 && (
               <div style={{ textAlign: 'center', padding: '3rem', color: '#718096' }}>
-                No players match your search filter.
+                No players loaded.
               </div>
             )}
           </div>
@@ -575,7 +725,8 @@ function App() {
                         <tr>
                           <th>GP Event</th>
                           <th>Points</th>
-                          <th>Rank</th>
+                          <th>League Rank</th>
+                          <th>Race Rank</th>
                           <th>Budget</th>
                           <th>Team Value</th>
                           <th>Trades</th>
@@ -595,6 +746,7 @@ function App() {
                               <td style={{ fontWeight: 600 }}>{h.race_name}</td>
                               <td>{h.points_gained} <span style={{ fontSize: '0.75rem', color: '#718096' }}>({h.total_points})</span></td>
                               <td>#{h.rank_in_league}</td>
+                              <td>#{getRaceRank(data.players, h.race_id, selectedPlayer.guid)}</td>
                               <td>
                                 ${h.budget.toFixed(1)}M
                                 {budgetDiff > 0 && <span className="trend-up" style={{ fontSize: '0.8rem', marginLeft: '3px' }}>▲</span>}
