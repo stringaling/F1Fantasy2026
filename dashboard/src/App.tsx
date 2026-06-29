@@ -240,7 +240,16 @@ function App() {
         return response.json();
       })
       .then((data: F1FantasyData) => {
-        setData(data);
+        // Filter out history entries for upcoming races (which have no drivers loaded yet)
+        const sanitizedPlayers = data.players.map(player => ({
+          ...player,
+          history: player.history.filter(h => h.team && h.team.drivers && h.team.drivers.length > 0)
+        }));
+
+        setData({
+          ...data,
+          players: sanitizedPlayers
+        });
         setLoading(false);
       })
       .catch(err => {
