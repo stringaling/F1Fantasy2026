@@ -1,17 +1,17 @@
 {
-  "last_updated": "2026-07-20T04:25:45Z",
+  "last_updated": "2026-07-27T16:10:37Z",
   "league_name": "Formula 42/51",
   "league_id": "6360509",
-  "current_race_id": 11,
+  "current_race_id": 12,
   "players": [
     {
       "guid": "311a9e7c-129e-11f1-acf4-c3fbf5ffacf1-0-193729612",
       "player_name": "Kale Vermast",
       "team_name": "Kimi all the points",
-      "total_points": 2556,
+      "total_points": 2790,
       "rank": 1,
-      "current_budget": 121.0,
-      "current_team_value": 119.5,
+      "current_budget": 123.9,
+      "current_team_value": 120.4,
       "chips_used": [
         {
           "chip": "limitless",
@@ -810,11 +810,89 @@
         {
           "race_id": 11,
           "race_name": "Hungarian GP",
-          "points_gained": 0,
-          "total_points": 2556.0,
+          "points_gained": 234.0,
+          "total_points": 2790.0,
           "rank_in_league": 1,
           "budget": 121.0,
-          "team_value": 119.5,
+          "team_value": 117.5,
+          "active_chip": null,
+          "team": {
+            "drivers": [
+              {
+                "id": "11051",
+                "name": "Gabriel Bortoleto",
+                "tla": "BOR",
+                "team": "Audi",
+                "price_at_race": 7.2,
+                "points": 10.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "11059",
+                "name": "Franco Colapinto",
+                "tla": "COL",
+                "team": "Alpine",
+                "price_at_race": 11.0,
+                "points": 3.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "11149",
+                "name": "Arvid Lindblad",
+                "tla": "LIN",
+                "team": "Racing Bulls",
+                "price_at_race": 7.4,
+                "points": 4.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "114",
+                "name": "Liam Lawson",
+                "tla": "LAW",
+                "team": "Racing Bulls",
+                "price_at_race": 9.7,
+                "points": 13.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "115",
+                "name": "Charles Leclerc",
+                "tla": "LEC",
+                "team": "Ferrari",
+                "price_at_race": 23.6,
+                "points": 62.0,
+                "is_captain": true,
+                "is_triple_captain": false
+              }
+            ],
+            "constructors": [
+              {
+                "id": "25",
+                "name": "Ferrari",
+                "price_at_race": 26.3,
+                "points": 71.0
+              },
+              {
+                "id": "28",
+                "name": "Mercedes",
+                "price_at_race": 32.3,
+                "points": 71.0
+              }
+            ]
+          }
+        },
+        {
+          "race_id": 12,
+          "race_name": "Dutch GP",
+          "points_gained": 0,
+          "total_points": 2790.0,
+          "rank_in_league": 1,
+          "budget": 123.9,
+          "team_value": 120.4,
           "active_chip": null,
           "team": {
             "drivers": [],
@@ -827,10 +905,10 @@
       "guid": "4c65de82-11cf-11f1-ae05-0533abd5fe89-0-189768866",
       "player_name": "David Stringer",
       "team_name": "RbRVengance",
-      "total_points": 2398,
+      "total_points": 2637,
       "rank": 2,
-      "current_budget": 119.3,
-      "current_team_value": 118.2,
+      "current_budget": 121.8,
+      "current_team_value": 120.7,
       "chips_used": [
         {
           "chip": "limitless",
@@ -1621,11 +1699,89 @@
         {
           "race_id": 11,
           "race_name": "Hungarian GP",
-          "points_gained": 0,
-          "total_points": 2398.0,
+          "points_gained": 239.0,
+          "total_points": 2637.0,
           "rank_in_league": 2,
           "budget": 119.3,
           "team_value": 118.2,
+          "active_chip": null,
+          "team": {
+            "drivers": [
+              {
+                "id": "11032",
+                "name": "Isack Hadjar",
+                "tla": "HAD",
+                "team": "Red Bull Racing",
+                "price_at_race": 13.9,
+                "points": 15.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "111",
+                "name": "Nico Hulkenberg",
+                "tla": "HUL",
+                "team": "Audi",
+                "price_at_race": 3.0,
+                "points": 9.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "11149",
+                "name": "Arvid Lindblad",
+                "tla": "LIN",
+                "team": "Racing Bulls",
+                "price_at_race": 7.4,
+                "points": 4.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "11161",
+                "name": "Kimi Antonelli",
+                "tla": "ANT",
+                "team": "Mercedes",
+                "price_at_race": 25.6,
+                "points": 56.0,
+                "is_captain": true,
+                "is_triple_captain": false
+              },
+              {
+                "id": "114",
+                "name": "Liam Lawson",
+                "tla": "LAW",
+                "team": "Racing Bulls",
+                "price_at_race": 9.7,
+                "points": 13.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              }
+            ],
+            "constructors": [
+              {
+                "id": "25",
+                "name": "Ferrari",
+                "price_at_race": 26.3,
+                "points": 71.0
+              },
+              {
+                "id": "28",
+                "name": "Mercedes",
+                "price_at_race": 32.3,
+                "points": 71.0
+              }
+            ]
+          }
+        },
+        {
+          "race_id": 12,
+          "race_name": "Dutch GP",
+          "points_gained": 0,
+          "total_points": 2637.0,
+          "rank_in_league": 2,
+          "budget": 121.8,
+          "team_value": 120.7,
           "active_chip": null,
           "team": {
             "drivers": [],
@@ -1638,10 +1794,10 @@
       "guid": "381d26e2-18b9-11f1-bb3d-fb3a3ccf5bd9-0-189769888",
       "player_name": "Samuel Stringer",
       "team_name": "Stroll to first place",
-      "total_points": 2378,
+      "total_points": 2581,
       "rank": 3,
-      "current_budget": 114.9,
-      "current_team_value": 114.5,
+      "current_budget": 117.0,
+      "current_team_value": 116.6,
       "chips_used": [
         {
           "chip": "limitless",
@@ -2432,11 +2588,89 @@
         {
           "race_id": 11,
           "race_name": "Hungarian GP",
-          "points_gained": 0,
-          "total_points": 2378.0,
+          "points_gained": 203.0,
+          "total_points": 2581.0,
           "rank_in_league": 3,
           "budget": 114.9,
           "team_value": 114.5,
+          "active_chip": null,
+          "team": {
+            "drivers": [
+              {
+                "id": "11051",
+                "name": "Gabriel Bortoleto",
+                "tla": "BOR",
+                "team": "Audi",
+                "price_at_race": 7.2,
+                "points": 10.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "11161",
+                "name": "Kimi Antonelli",
+                "tla": "ANT",
+                "team": "Mercedes",
+                "price_at_race": 25.6,
+                "points": 56.0,
+                "is_captain": true,
+                "is_triple_captain": false
+              },
+              {
+                "id": "115",
+                "name": "Charles Leclerc",
+                "tla": "LEC",
+                "team": "Ferrari",
+                "price_at_race": 23.6,
+                "points": 31.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "118",
+                "name": "Esteban Ocon",
+                "tla": "OCO",
+                "team": "Haas F1 Team",
+                "price_at_race": 10.5,
+                "points": 4.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "13",
+                "name": "Valtteri Bottas",
+                "tla": "BOT",
+                "team": "Cadillac",
+                "price_at_race": 3.0,
+                "points": -16.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              }
+            ],
+            "constructors": [
+              {
+                "id": "2636",
+                "name": "Racing Bulls",
+                "price_at_race": 12.3,
+                "points": 47.0
+              },
+              {
+                "id": "28",
+                "name": "Mercedes",
+                "price_at_race": 32.3,
+                "points": 71.0
+              }
+            ]
+          }
+        },
+        {
+          "race_id": 12,
+          "race_name": "Dutch GP",
+          "points_gained": 0,
+          "total_points": 2581.0,
+          "rank_in_league": 3,
+          "budget": 117.0,
+          "team_value": 116.6,
           "active_chip": null,
           "team": {
             "drivers": [],
@@ -2449,10 +2683,10 @@
       "guid": "889778aa-18fc-11f1-882d-6311c28311b3-0-182164295",
       "player_name": "Michael Laycock",
       "team_name": "First Corner Mayhem",
-      "total_points": 2242,
+      "total_points": 2461,
       "rank": 4,
-      "current_budget": 120.8,
-      "current_team_value": 120.3,
+      "current_budget": 122.9,
+      "current_team_value": 122.4,
       "chips_used": [
         {
           "chip": "limitless",
@@ -3243,11 +3477,89 @@
         {
           "race_id": 11,
           "race_name": "Hungarian GP",
-          "points_gained": 0,
-          "total_points": 2242.0,
+          "points_gained": 219.0,
+          "total_points": 2461.0,
           "rank_in_league": 4,
           "budget": 120.8,
           "team_value": 120.3,
+          "active_chip": null,
+          "team": {
+            "drivers": [
+              {
+                "id": "110",
+                "name": "Lewis Hamilton",
+                "tla": "HAM",
+                "team": "Ferrari",
+                "price_at_race": 24.9,
+                "points": 25.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "11059",
+                "name": "Franco Colapinto",
+                "tla": "COL",
+                "team": "Alpine",
+                "price_at_race": 11.0,
+                "points": 3.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "11161",
+                "name": "Kimi Antonelli",
+                "tla": "ANT",
+                "team": "Mercedes",
+                "price_at_race": 25.6,
+                "points": 56.0,
+                "is_captain": true,
+                "is_triple_captain": false
+              },
+              {
+                "id": "114",
+                "name": "Liam Lawson",
+                "tla": "LAW",
+                "team": "Racing Bulls",
+                "price_at_race": 9.7,
+                "points": 13.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "118",
+                "name": "Esteban Ocon",
+                "tla": "OCO",
+                "team": "Haas F1 Team",
+                "price_at_race": 10.5,
+                "points": 4.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              }
+            ],
+            "constructors": [
+              {
+                "id": "25",
+                "name": "Ferrari",
+                "price_at_race": 26.3,
+                "points": 71.0
+              },
+              {
+                "id": "2636",
+                "name": "Racing Bulls",
+                "price_at_race": 12.3,
+                "points": 47.0
+              }
+            ]
+          }
+        },
+        {
+          "race_id": 12,
+          "race_name": "Dutch GP",
+          "points_gained": 0,
+          "total_points": 2461.0,
+          "rank_in_league": 4,
+          "budget": 122.9,
+          "team_value": 122.4,
           "active_chip": null,
           "team": {
             "drivers": [],
@@ -3260,10 +3572,10 @@
       "guid": "c6127de8-1289-11f1-a467-6d3086373d49-0-202434327",
       "player_name": "Benson Lay",
       "team_name": "Stroll down mainstreet",
-      "total_points": 2159,
+      "total_points": 2352,
       "rank": 5,
-      "current_budget": 110.2,
-      "current_team_value": 110.1,
+      "current_budget": 111.7,
+      "current_team_value": 111.6,
       "chips_used": [
         {
           "chip": "limitless",
@@ -4054,11 +4366,89 @@
         {
           "race_id": 11,
           "race_name": "Hungarian GP",
-          "points_gained": 0,
-          "total_points": 2159.0,
+          "points_gained": 193.0,
+          "total_points": 2352.0,
           "rank_in_league": 5,
           "budget": 110.2,
           "team_value": 110.1,
+          "active_chip": null,
+          "team": {
+            "drivers": [
+              {
+                "id": "11149",
+                "name": "Arvid Lindblad",
+                "tla": "LIN",
+                "team": "Racing Bulls",
+                "price_at_race": 7.4,
+                "points": 4.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "11161",
+                "name": "Kimi Antonelli",
+                "tla": "ANT",
+                "team": "Mercedes",
+                "price_at_race": 25.6,
+                "points": 56.0,
+                "is_captain": true,
+                "is_triple_captain": false
+              },
+              {
+                "id": "115",
+                "name": "Charles Leclerc",
+                "tla": "LEC",
+                "team": "Ferrari",
+                "price_at_race": 23.6,
+                "points": 31.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "118",
+                "name": "Esteban Ocon",
+                "tla": "OCO",
+                "team": "Haas F1 Team",
+                "price_at_race": 10.5,
+                "points": 4.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "121",
+                "name": "Sergio Perez",
+                "tla": "PER",
+                "team": "Cadillac",
+                "price_at_race": 4.4,
+                "points": -20.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              }
+            ],
+            "constructors": [
+              {
+                "id": "25",
+                "name": "Ferrari",
+                "price_at_race": 26.3,
+                "points": 71.0
+              },
+              {
+                "id": "2636",
+                "name": "Racing Bulls",
+                "price_at_race": 12.3,
+                "points": 47.0
+              }
+            ]
+          }
+        },
+        {
+          "race_id": 12,
+          "race_name": "Dutch GP",
+          "points_gained": 0,
+          "total_points": 2352.0,
+          "rank_in_league": 5,
+          "budget": 111.7,
+          "team_value": 111.6,
           "active_chip": null,
           "team": {
             "drivers": [],
@@ -4071,10 +4461,10 @@
       "guid": "967a527a-17e0-11f1-9e07-adf60682eacb-0-232227202",
       "player_name": "jeffrey baron",
       "team_name": "Gonchpulls",
-      "total_points": 2033,
+      "total_points": 2243,
       "rank": 6,
-      "current_budget": 112.2,
-      "current_team_value": 111.6,
+      "current_budget": 114.1,
+      "current_team_value": 113.4,
       "chips_used": [
         {
           "chip": "autopilot",
@@ -4877,602 +5267,31 @@
         {
           "race_id": 11,
           "race_name": "Hungarian GP",
-          "points_gained": 0,
-          "total_points": 2033.0,
+          "points_gained": 210.0,
+          "total_points": 2243.0,
           "rank_in_league": 6,
           "budget": 112.2,
-          "team_value": 111.6,
-          "active_chip": null,
-          "team": {
-            "drivers": [],
-            "constructors": []
-          }
-        }
-      ]
-    },
-    {
-      "guid": "e8bb82aa-1751-11f1-a17f-c5db2c041a12-0-161105863",
-      "player_name": "Tim Baron",
-      "team_name": "TBFlyers",
-      "total_points": 1928,
-      "rank": 7,
-      "current_budget": 108.6,
-      "current_team_value": 108.5,
-      "chips_used": [
-        {
-          "chip": "autopilot",
-          "race_id": 8
-        },
-        {
-          "chip": "no_negative",
-          "race_id": 9
-        }
-      ],
-      "history": [
-        {
-          "race_id": 1,
-          "race_name": "Australian GP",
-          "points_gained": 224.0,
-          "total_points": 224.0,
-          "rank_in_league": 5,
-          "budget": 100.0,
-          "team_value": 96.8,
+          "team_value": 111.5,
           "active_chip": null,
           "team": {
             "drivers": [
               {
-                "id": "124",
-                "name": "George Russell",
-                "tla": "RUS",
-                "team": "Mercedes",
-                "price_at_race": 27.4,
-                "points": 78.0,
-                "is_captain": true,
-                "is_triple_captain": false
-              },
-              {
-                "id": "18",
-                "name": "Pierre Gasly",
-                "tla": "GAS",
-                "team": "Alpine",
-                "price_at_race": 12.0,
-                "points": 11.0,
+                "id": "11032",
+                "name": "Isack Hadjar",
+                "tla": "HAD",
+                "team": "Red Bull Racing",
+                "price_at_race": 13.9,
+                "points": 15.0,
                 "is_captain": false,
                 "is_triple_captain": false
               },
-              {
-                "id": "111",
-                "name": "Nico Hulkenberg",
-                "tla": "HUL",
-                "team": "Audi",
-                "price_at_race": 6.8,
-                "points": -20.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "114",
-                "name": "Liam Lawson",
-                "tla": "LAW",
-                "team": "Racing Bulls",
-                "price_at_race": 6.5,
-                "points": 5.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "11031",
-                "name": "Oliver Bearman",
-                "tla": "BEA",
-                "team": "Haas F1 Team",
-                "price_at_race": 7.4,
-                "points": 20.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              }
-            ],
-            "constructors": [
-              {
-                "id": "28",
-                "name": "Mercedes",
-                "price_at_race": 29.3,
-                "points": 96.0
-              },
-              {
-                "id": "26",
-                "name": "Haas F1 Team",
-                "price_at_race": 7.4,
-                "points": 34.0
-              }
-            ]
-          }
-        },
-        {
-          "race_id": 2,
-          "race_name": "Chinese GP",
-          "points_gained": 366.0,
-          "total_points": 590.0,
-          "rank_in_league": 5,
-          "budget": 101.2,
-          "team_value": 98.0,
-          "active_chip": null,
-          "team": {
-            "drivers": [
-              {
-                "id": "11031",
-                "name": "Oliver Bearman",
-                "tla": "BEA",
-                "team": "Haas F1 Team",
-                "price_at_race": 8.0,
-                "points": 34.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "18",
-                "name": "Pierre Gasly",
-                "tla": "GAS",
-                "team": "Alpine",
-                "price_at_race": 12.2,
-                "points": 20.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "111",
-                "name": "Nico Hulkenberg",
-                "tla": "HUL",
-                "team": "Audi",
-                "price_at_race": 6.2,
-                "points": 7.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "124",
-                "name": "George Russell",
-                "tla": "RUS",
-                "team": "Mercedes",
-                "price_at_race": 27.7,
-                "points": 90.0,
-                "is_captain": true,
-                "is_triple_captain": false
-              },
-              {
-                "id": "114",
-                "name": "Liam Lawson",
-                "tla": "LAW",
-                "team": "Racing Bulls",
-                "price_at_race": 6.3,
-                "points": 35.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              }
-            ],
-            "constructors": [
-              {
-                "id": "26",
-                "name": "Haas F1 Team",
-                "price_at_race": 8.0,
-                "points": 65.0
-              },
-              {
-                "id": "28",
-                "name": "Mercedes",
-                "price_at_race": 29.6,
-                "points": 115.0
-              }
-            ]
-          }
-        },
-        {
-          "race_id": 3,
-          "race_name": "Japanese GP",
-          "points_gained": 162.0,
-          "total_points": 752.0,
-          "rank_in_league": 5,
-          "budget": 103.6,
-          "team_value": 100.4,
-          "active_chip": null,
-          "team": {
-            "drivers": [
-              {
-                "id": "11031",
-                "name": "Oliver Bearman",
-                "tla": "BEA",
-                "team": "Haas F1 Team",
-                "price_at_race": 8.6,
-                "points": -14.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "111",
-                "name": "Nico Hulkenberg",
-                "tla": "HUL",
-                "team": "Audi",
-                "price_at_race": 5.6,
-                "points": 10.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "114",
-                "name": "Liam Lawson",
-                "tla": "LAW",
-                "team": "Racing Bulls",
-                "price_at_race": 6.9,
-                "points": 10.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "124",
-                "name": "George Russell",
-                "tla": "RUS",
-                "team": "Mercedes",
-                "price_at_race": 28.0,
-                "points": 54.0,
-                "is_captain": true,
-                "is_triple_captain": false
-              },
-              {
-                "id": "18",
-                "name": "Pierre Gasly",
-                "tla": "GAS",
-                "team": "Alpine",
-                "price_at_race": 12.8,
-                "points": 14.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              }
-            ],
-            "constructors": [
-              {
-                "id": "26",
-                "name": "Haas F1 Team",
-                "price_at_race": 8.6,
-                "points": -4.0
-              },
-              {
-                "id": "28",
-                "name": "Mercedes",
-                "price_at_race": 29.9,
-                "points": 92.0
-              }
-            ]
-          }
-        },
-        {
-          "race_id": 4,
-          "race_name": "Miami GP",
-          "points_gained": 168.0,
-          "total_points": 920.0,
-          "rank_in_league": 7,
-          "budget": 105.6,
-          "team_value": 102.4,
-          "active_chip": null,
-          "team": {
-            "drivers": [
-              {
-                "id": "11031",
-                "name": "Oliver Bearman",
-                "tla": "BEA",
-                "team": "Haas F1 Team",
-                "price_at_race": 9.2,
-                "points": 6.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "111",
-                "name": "Nico Hulkenberg",
-                "tla": "HUL",
-                "team": "Audi",
-                "price_at_race": 5.0,
-                "points": -29.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "114",
-                "name": "Liam Lawson",
-                "tla": "LAW",
-                "team": "Racing Bulls",
-                "price_at_race": 7.5,
-                "points": -12.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "124",
-                "name": "George Russell",
-                "tla": "RUS",
-                "team": "Mercedes",
-                "price_at_race": 28.3,
-                "points": 84.0,
-                "is_captain": true,
-                "is_triple_captain": false
-              },
-              {
-                "id": "18",
-                "name": "Pierre Gasly",
-                "tla": "GAS",
-                "team": "Alpine",
-                "price_at_race": 13.0,
-                "points": -8.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              }
-            ],
-            "constructors": [
-              {
-                "id": "26",
-                "name": "Haas F1 Team",
-                "price_at_race": 9.2,
-                "points": 23.0
-              },
-              {
-                "id": "28",
-                "name": "Mercedes",
-                "price_at_race": 30.2,
-                "points": 104.0
-              }
-            ]
-          }
-        },
-        {
-          "race_id": 5,
-          "race_name": "Canadian GP",
-          "points_gained": 153.0,
-          "total_points": 1073.0,
-          "rank_in_league": 9,
-          "budget": 106.8,
-          "team_value": 103.6,
-          "active_chip": null,
-          "team": {
-            "drivers": [
-              {
-                "id": "11031",
-                "name": "Oliver Bearman",
-                "tla": "BEA",
-                "team": "Haas F1 Team",
-                "price_at_race": 9.4,
-                "points": 10.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "111",
-                "name": "Nico Hulkenberg",
-                "tla": "HUL",
-                "team": "Audi",
-                "price_at_race": 4.4,
-                "points": 1.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "114",
-                "name": "Liam Lawson",
-                "tla": "LAW",
-                "team": "Racing Bulls",
-                "price_at_race": 8.1,
-                "points": 23.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "124",
-                "name": "George Russell",
-                "tla": "RUS",
-                "team": "Mercedes",
-                "price_at_race": 28.6,
-                "points": 8.0,
-                "is_captain": true,
-                "is_triple_captain": false
-              },
-              {
-                "id": "18",
-                "name": "Pierre Gasly",
-                "tla": "GAS",
-                "team": "Alpine",
-                "price_at_race": 12.8,
-                "points": 16.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              }
-            ],
-            "constructors": [
-              {
-                "id": "26",
-                "name": "Haas F1 Team",
-                "price_at_race": 9.8,
-                "points": 19.0
-              },
-              {
-                "id": "28",
-                "name": "Mercedes",
-                "price_at_race": 30.5,
-                "points": 76.0
-              }
-            ]
-          }
-        },
-        {
-          "race_id": 6,
-          "race_name": "Monaco GP",
-          "points_gained": 84.0,
-          "total_points": 1157.0,
-          "rank_in_league": 8,
-          "budget": 105.6,
-          "team_value": 102.4,
-          "active_chip": null,
-          "team": {
-            "drivers": [
-              {
-                "id": "11031",
-                "name": "Oliver Bearman",
-                "tla": "BEA",
-                "team": "Haas F1 Team",
-                "price_at_race": 8.8,
-                "points": -19.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "111",
-                "name": "Nico Hulkenberg",
-                "tla": "HUL",
-                "team": "Audi",
-                "price_at_race": 3.8,
-                "points": 3.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "114",
-                "name": "Liam Lawson",
-                "tla": "LAW",
-                "team": "Racing Bulls",
-                "price_at_race": 7.9,
-                "points": 13.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "124",
-                "name": "George Russell",
-                "tla": "RUS",
-                "team": "Mercedes",
-                "price_at_race": 28.5,
-                "points": 0.0,
-                "is_captain": true,
-                "is_triple_captain": false
-              },
-              {
-                "id": "18",
-                "name": "Pierre Gasly",
-                "tla": "GAS",
-                "team": "Alpine",
-                "price_at_race": 12.2,
-                "points": 25.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              }
-            ],
-            "constructors": [
-              {
-                "id": "26",
-                "name": "Haas F1 Team",
-                "price_at_race": 10.4,
-                "points": -8.0
-              },
-              {
-                "id": "28",
-                "name": "Mercedes",
-                "price_at_race": 30.8,
-                "points": 70.0
-              }
-            ]
-          }
-        },
-        {
-          "race_id": 7,
-          "race_name": "Spanish GP",
-          "points_gained": 129.0,
-          "total_points": 1286.0,
-          "rank_in_league": 8,
-          "budget": 104.2,
-          "team_value": 101.0,
-          "active_chip": null,
-          "team": {
-            "drivers": [
-              {
-                "id": "11031",
-                "name": "Oliver Bearman",
-                "tla": "BEA",
-                "team": "Haas F1 Team",
-                "price_at_race": 8.2,
-                "points": 7.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "114",
-                "name": "Liam Lawson",
-                "tla": "LAW",
-                "team": "Racing Bulls",
-                "price_at_race": 8.1,
-                "points": 9.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "124",
-                "name": "George Russell",
-                "tla": "RUS",
-                "team": "Mercedes",
-                "price_at_race": 28.2,
-                "points": 56.0,
-                "is_captain": true,
-                "is_triple_captain": false
-              },
-              {
-                "id": "18",
-                "name": "Pierre Gasly",
-                "tla": "GAS",
-                "team": "Alpine",
-                "price_at_race": 11.6,
-                "points": 17.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "111",
-                "name": "Nico Hulkenberg",
-                "tla": "HUL",
-                "team": "Audi",
-                "price_at_race": 3.2,
-                "points": -15.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              }
-            ],
-            "constructors": [
-              {
-                "id": "26",
-                "name": "Haas F1 Team",
-                "price_at_race": 10.6,
-                "points": 16.0
-              },
-              {
-                "id": "28",
-                "name": "Mercedes",
-                "price_at_race": 31.1,
-                "points": 39.0
-              }
-            ]
-          }
-        },
-        {
-          "race_id": 8,
-          "race_name": "Austrian GP",
-          "points_gained": 190.0,
-          "total_points": 1476.0,
-          "rank_in_league": 7,
-          "budget": 104.4,
-          "team_value": 104.1,
-          "active_chip": "autopilot",
-          "team": {
-            "drivers": [
               {
                 "id": "111",
                 "name": "Nico Hulkenberg",
                 "tla": "HUL",
                 "team": "Audi",
                 "price_at_race": 3.0,
-                "points": 5.0,
+                "points": 9.0,
                 "is_captain": false,
                 "is_triple_captain": false
               },
@@ -5481,8 +5300,8 @@
                 "name": "Arvid Lindblad",
                 "tla": "LIN",
                 "team": "Racing Bulls",
-                "price_at_race": 5.6,
-                "points": 6.0,
+                "price_at_race": 7.4,
+                "points": 4.0,
                 "is_captain": false,
                 "is_triple_captain": false
               },
@@ -5491,8 +5310,8 @@
                 "name": "Kimi Antonelli",
                 "tla": "ANT",
                 "team": "Mercedes",
-                "price_at_race": 25.3,
-                "points": 70.0,
+                "price_at_race": 25.6,
+                "points": 56.0,
                 "is_captain": true,
                 "is_triple_captain": false
               },
@@ -5501,202 +5320,36 @@
                 "name": "Valtteri Bottas",
                 "tla": "BOT",
                 "team": "Cadillac",
-                "price_at_race": 3.3,
-                "points": -17.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "1982",
-                "name": "Oscar Piastri",
-                "tla": "PIA",
-                "team": "McLaren",
-                "price_at_race": 25.0,
-                "points": 23.0,
+                "price_at_race": 3.0,
+                "points": -16.0,
                 "is_captain": false,
                 "is_triple_captain": false
               }
             ],
             "constructors": [
               {
-                "id": "2636",
-                "name": "Racing Bulls",
-                "price_at_race": 10.5,
-                "points": 38.0
+                "id": "25",
+                "name": "Ferrari",
+                "price_at_race": 26.3,
+                "points": 71.0
               },
               {
                 "id": "28",
                 "name": "Mercedes",
-                "price_at_race": 31.4,
-                "points": 85.0
+                "price_at_race": 32.3,
+                "points": 71.0
               }
             ]
           }
         },
         {
-          "race_id": 9,
-          "race_name": "British GP",
-          "points_gained": 307.0,
-          "total_points": 1783.0,
-          "rank_in_league": 8,
-          "budget": 105.6,
-          "team_value": 105.5,
-          "active_chip": "no_negative",
-          "team": {
-            "drivers": [
-              {
-                "id": "110",
-                "name": "Lewis Hamilton",
-                "tla": "HAM",
-                "team": "Ferrari",
-                "price_at_race": 24.5,
-                "points": 33.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "111",
-                "name": "Nico Hulkenberg",
-                "tla": "HUL",
-                "team": "Audi",
-                "price_at_race": 3.0,
-                "points": -7.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "11149",
-                "name": "Arvid Lindblad",
-                "tla": "LIN",
-                "team": "Racing Bulls",
-                "price_at_race": 6.2,
-                "points": 18.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "11161",
-                "name": "Kimi Antonelli",
-                "tla": "ANT",
-                "team": "Mercedes",
-                "price_at_race": 25.4,
-                "points": 46.0,
-                "is_captain": true,
-                "is_triple_captain": false
-              },
-              {
-                "id": "129",
-                "name": "Lance Stroll",
-                "tla": "STR",
-                "team": "Aston Martin",
-                "price_at_race": 3.6,
-                "points": 7.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              }
-            ],
-            "constructors": [
-              {
-                "id": "2636",
-                "name": "Racing Bulls",
-                "price_at_race": 11.1,
-                "points": 55.0
-              },
-              {
-                "id": "28",
-                "name": "Mercedes",
-                "price_at_race": 31.7,
-                "points": 92.0
-              }
-            ]
-          }
-        },
-        {
-          "race_id": 10,
-          "race_name": "Belgian GP",
-          "points_gained": 145.0,
-          "total_points": 1928.0,
-          "rank_in_league": 7,
-          "budget": 106.7,
-          "team_value": 106.6,
-          "active_chip": null,
-          "team": {
-            "drivers": [
-              {
-                "id": "110",
-                "name": "Lewis Hamilton",
-                "tla": "HAM",
-                "team": "Ferrari",
-                "price_at_race": 24.8,
-                "points": 22.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "111",
-                "name": "Nico Hulkenberg",
-                "tla": "HUL",
-                "team": "Audi",
-                "price_at_race": 3.0,
-                "points": 4.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "11149",
-                "name": "Arvid Lindblad",
-                "tla": "LIN",
-                "team": "Racing Bulls",
-                "price_at_race": 6.8,
-                "points": 5.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              },
-              {
-                "id": "11161",
-                "name": "Kimi Antonelli",
-                "tla": "ANT",
-                "team": "Mercedes",
-                "price_at_race": 25.3,
-                "points": 76.0,
-                "is_captain": true,
-                "is_triple_captain": false
-              },
-              {
-                "id": "129",
-                "name": "Lance Stroll",
-                "tla": "STR",
-                "team": "Aston Martin",
-                "price_at_race": 3.0,
-                "points": -19.0,
-                "is_captain": false,
-                "is_triple_captain": false
-              }
-            ],
-            "constructors": [
-              {
-                "id": "2636",
-                "name": "Racing Bulls",
-                "price_at_race": 11.7,
-                "points": 15.0
-              },
-              {
-                "id": "28",
-                "name": "Mercedes",
-                "price_at_race": 32.0,
-                "points": 42.0
-              }
-            ]
-          }
-        },
-        {
-          "race_id": 11,
-          "race_name": "Hungarian GP",
+          "race_id": 12,
+          "race_name": "Dutch GP",
           "points_gained": 0,
-          "total_points": 1928.0,
-          "rank_in_league": 7,
-          "budget": 108.6,
-          "team_value": 108.5,
+          "total_points": 2243.0,
+          "rank_in_league": 6,
+          "budget": 114.1,
+          "team_value": 113.4,
           "active_chip": null,
           "team": {
             "drivers": [],
@@ -5709,10 +5362,10 @@
       "guid": "676333b0-184b-11f1-a348-8fbc37b49eee-0-193982791",
       "player_name": "Nick Peacock",
       "team_name": "Papaya Drules",
-      "total_points": 1909,
-      "rank": 8,
-      "current_budget": 110.7,
-      "current_team_value": 110.3,
+      "total_points": 2104,
+      "rank": 7,
+      "current_budget": 112.6,
+      "current_team_value": 112.2,
       "chips_used": [
         {
           "chip": "no_negative",
@@ -6503,12 +6156,987 @@
         {
           "race_id": 11,
           "race_name": "Hungarian GP",
-          "points_gained": 0,
-          "total_points": 1909.0,
-          "rank_in_league": 8,
+          "points_gained": 195.0,
+          "total_points": 2104.0,
+          "rank_in_league": 7,
           "budget": 110.7,
           "team_value": 110.3,
           "active_chip": null,
+          "team": {
+            "drivers": [
+              {
+                "id": "11031",
+                "name": "Oliver Bearman",
+                "tla": "BEA",
+                "team": "Haas F1 Team",
+                "price_at_race": 7.4,
+                "points": 3.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "114",
+                "name": "Liam Lawson",
+                "tla": "LAW",
+                "team": "Racing Bulls",
+                "price_at_race": 9.7,
+                "points": 13.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "115",
+                "name": "Charles Leclerc",
+                "tla": "LEC",
+                "team": "Ferrari",
+                "price_at_race": 23.6,
+                "points": 31.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "124",
+                "name": "George Russell",
+                "tla": "RUS",
+                "team": "Mercedes",
+                "price_at_race": 28.0,
+                "points": 46.0,
+                "is_captain": true,
+                "is_triple_captain": false
+              },
+              {
+                "id": "13",
+                "name": "Valtteri Bottas",
+                "tla": "BOT",
+                "team": "Cadillac",
+                "price_at_race": 3.0,
+                "points": -16.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              }
+            ],
+            "constructors": [
+              {
+                "id": "25",
+                "name": "Ferrari",
+                "price_at_race": 26.3,
+                "points": 71.0
+              },
+              {
+                "id": "2636",
+                "name": "Racing Bulls",
+                "price_at_race": 12.3,
+                "points": 47.0
+              }
+            ]
+          }
+        },
+        {
+          "race_id": 12,
+          "race_name": "Dutch GP",
+          "points_gained": 0,
+          "total_points": 2104.0,
+          "rank_in_league": 7,
+          "budget": 112.6,
+          "team_value": 112.2,
+          "active_chip": null,
+          "team": {
+            "drivers": [],
+            "constructors": []
+          }
+        }
+      ]
+    },
+    {
+      "guid": "e8bb82aa-1751-11f1-a17f-c5db2c041a12-0-161105863",
+      "player_name": "Tim Baron",
+      "team_name": "TBFlyers",
+      "total_points": 2102,
+      "rank": 8,
+      "current_budget": 109.7,
+      "current_team_value": 104.9,
+      "chips_used": [
+        {
+          "chip": "autopilot",
+          "race_id": 8
+        },
+        {
+          "chip": "no_negative",
+          "race_id": 9
+        },
+        {
+          "chip": "wildcard",
+          "race_id": 11
+        }
+      ],
+      "history": [
+        {
+          "race_id": 1,
+          "race_name": "Australian GP",
+          "points_gained": 224.0,
+          "total_points": 224.0,
+          "rank_in_league": 5,
+          "budget": 100.0,
+          "team_value": 96.8,
+          "active_chip": null,
+          "team": {
+            "drivers": [
+              {
+                "id": "124",
+                "name": "George Russell",
+                "tla": "RUS",
+                "team": "Mercedes",
+                "price_at_race": 27.4,
+                "points": 78.0,
+                "is_captain": true,
+                "is_triple_captain": false
+              },
+              {
+                "id": "18",
+                "name": "Pierre Gasly",
+                "tla": "GAS",
+                "team": "Alpine",
+                "price_at_race": 12.0,
+                "points": 11.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "111",
+                "name": "Nico Hulkenberg",
+                "tla": "HUL",
+                "team": "Audi",
+                "price_at_race": 6.8,
+                "points": -20.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "114",
+                "name": "Liam Lawson",
+                "tla": "LAW",
+                "team": "Racing Bulls",
+                "price_at_race": 6.5,
+                "points": 5.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "11031",
+                "name": "Oliver Bearman",
+                "tla": "BEA",
+                "team": "Haas F1 Team",
+                "price_at_race": 7.4,
+                "points": 20.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              }
+            ],
+            "constructors": [
+              {
+                "id": "28",
+                "name": "Mercedes",
+                "price_at_race": 29.3,
+                "points": 96.0
+              },
+              {
+                "id": "26",
+                "name": "Haas F1 Team",
+                "price_at_race": 7.4,
+                "points": 34.0
+              }
+            ]
+          }
+        },
+        {
+          "race_id": 2,
+          "race_name": "Chinese GP",
+          "points_gained": 366.0,
+          "total_points": 590.0,
+          "rank_in_league": 5,
+          "budget": 101.2,
+          "team_value": 98.0,
+          "active_chip": null,
+          "team": {
+            "drivers": [
+              {
+                "id": "11031",
+                "name": "Oliver Bearman",
+                "tla": "BEA",
+                "team": "Haas F1 Team",
+                "price_at_race": 8.0,
+                "points": 34.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "18",
+                "name": "Pierre Gasly",
+                "tla": "GAS",
+                "team": "Alpine",
+                "price_at_race": 12.2,
+                "points": 20.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "111",
+                "name": "Nico Hulkenberg",
+                "tla": "HUL",
+                "team": "Audi",
+                "price_at_race": 6.2,
+                "points": 7.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "124",
+                "name": "George Russell",
+                "tla": "RUS",
+                "team": "Mercedes",
+                "price_at_race": 27.7,
+                "points": 90.0,
+                "is_captain": true,
+                "is_triple_captain": false
+              },
+              {
+                "id": "114",
+                "name": "Liam Lawson",
+                "tla": "LAW",
+                "team": "Racing Bulls",
+                "price_at_race": 6.3,
+                "points": 35.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              }
+            ],
+            "constructors": [
+              {
+                "id": "26",
+                "name": "Haas F1 Team",
+                "price_at_race": 8.0,
+                "points": 65.0
+              },
+              {
+                "id": "28",
+                "name": "Mercedes",
+                "price_at_race": 29.6,
+                "points": 115.0
+              }
+            ]
+          }
+        },
+        {
+          "race_id": 3,
+          "race_name": "Japanese GP",
+          "points_gained": 162.0,
+          "total_points": 752.0,
+          "rank_in_league": 5,
+          "budget": 103.6,
+          "team_value": 100.4,
+          "active_chip": null,
+          "team": {
+            "drivers": [
+              {
+                "id": "11031",
+                "name": "Oliver Bearman",
+                "tla": "BEA",
+                "team": "Haas F1 Team",
+                "price_at_race": 8.6,
+                "points": -14.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "111",
+                "name": "Nico Hulkenberg",
+                "tla": "HUL",
+                "team": "Audi",
+                "price_at_race": 5.6,
+                "points": 10.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "114",
+                "name": "Liam Lawson",
+                "tla": "LAW",
+                "team": "Racing Bulls",
+                "price_at_race": 6.9,
+                "points": 10.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "124",
+                "name": "George Russell",
+                "tla": "RUS",
+                "team": "Mercedes",
+                "price_at_race": 28.0,
+                "points": 54.0,
+                "is_captain": true,
+                "is_triple_captain": false
+              },
+              {
+                "id": "18",
+                "name": "Pierre Gasly",
+                "tla": "GAS",
+                "team": "Alpine",
+                "price_at_race": 12.8,
+                "points": 14.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              }
+            ],
+            "constructors": [
+              {
+                "id": "26",
+                "name": "Haas F1 Team",
+                "price_at_race": 8.6,
+                "points": -4.0
+              },
+              {
+                "id": "28",
+                "name": "Mercedes",
+                "price_at_race": 29.9,
+                "points": 92.0
+              }
+            ]
+          }
+        },
+        {
+          "race_id": 4,
+          "race_name": "Miami GP",
+          "points_gained": 168.0,
+          "total_points": 920.0,
+          "rank_in_league": 7,
+          "budget": 105.6,
+          "team_value": 102.4,
+          "active_chip": null,
+          "team": {
+            "drivers": [
+              {
+                "id": "11031",
+                "name": "Oliver Bearman",
+                "tla": "BEA",
+                "team": "Haas F1 Team",
+                "price_at_race": 9.2,
+                "points": 6.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "111",
+                "name": "Nico Hulkenberg",
+                "tla": "HUL",
+                "team": "Audi",
+                "price_at_race": 5.0,
+                "points": -29.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "114",
+                "name": "Liam Lawson",
+                "tla": "LAW",
+                "team": "Racing Bulls",
+                "price_at_race": 7.5,
+                "points": -12.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "124",
+                "name": "George Russell",
+                "tla": "RUS",
+                "team": "Mercedes",
+                "price_at_race": 28.3,
+                "points": 84.0,
+                "is_captain": true,
+                "is_triple_captain": false
+              },
+              {
+                "id": "18",
+                "name": "Pierre Gasly",
+                "tla": "GAS",
+                "team": "Alpine",
+                "price_at_race": 13.0,
+                "points": -8.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              }
+            ],
+            "constructors": [
+              {
+                "id": "26",
+                "name": "Haas F1 Team",
+                "price_at_race": 9.2,
+                "points": 23.0
+              },
+              {
+                "id": "28",
+                "name": "Mercedes",
+                "price_at_race": 30.2,
+                "points": 104.0
+              }
+            ]
+          }
+        },
+        {
+          "race_id": 5,
+          "race_name": "Canadian GP",
+          "points_gained": 153.0,
+          "total_points": 1073.0,
+          "rank_in_league": 9,
+          "budget": 106.8,
+          "team_value": 103.6,
+          "active_chip": null,
+          "team": {
+            "drivers": [
+              {
+                "id": "11031",
+                "name": "Oliver Bearman",
+                "tla": "BEA",
+                "team": "Haas F1 Team",
+                "price_at_race": 9.4,
+                "points": 10.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "111",
+                "name": "Nico Hulkenberg",
+                "tla": "HUL",
+                "team": "Audi",
+                "price_at_race": 4.4,
+                "points": 1.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "114",
+                "name": "Liam Lawson",
+                "tla": "LAW",
+                "team": "Racing Bulls",
+                "price_at_race": 8.1,
+                "points": 23.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "124",
+                "name": "George Russell",
+                "tla": "RUS",
+                "team": "Mercedes",
+                "price_at_race": 28.6,
+                "points": 8.0,
+                "is_captain": true,
+                "is_triple_captain": false
+              },
+              {
+                "id": "18",
+                "name": "Pierre Gasly",
+                "tla": "GAS",
+                "team": "Alpine",
+                "price_at_race": 12.8,
+                "points": 16.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              }
+            ],
+            "constructors": [
+              {
+                "id": "26",
+                "name": "Haas F1 Team",
+                "price_at_race": 9.8,
+                "points": 19.0
+              },
+              {
+                "id": "28",
+                "name": "Mercedes",
+                "price_at_race": 30.5,
+                "points": 76.0
+              }
+            ]
+          }
+        },
+        {
+          "race_id": 6,
+          "race_name": "Monaco GP",
+          "points_gained": 84.0,
+          "total_points": 1157.0,
+          "rank_in_league": 8,
+          "budget": 105.6,
+          "team_value": 102.4,
+          "active_chip": null,
+          "team": {
+            "drivers": [
+              {
+                "id": "11031",
+                "name": "Oliver Bearman",
+                "tla": "BEA",
+                "team": "Haas F1 Team",
+                "price_at_race": 8.8,
+                "points": -19.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "111",
+                "name": "Nico Hulkenberg",
+                "tla": "HUL",
+                "team": "Audi",
+                "price_at_race": 3.8,
+                "points": 3.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "114",
+                "name": "Liam Lawson",
+                "tla": "LAW",
+                "team": "Racing Bulls",
+                "price_at_race": 7.9,
+                "points": 13.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "124",
+                "name": "George Russell",
+                "tla": "RUS",
+                "team": "Mercedes",
+                "price_at_race": 28.5,
+                "points": 0.0,
+                "is_captain": true,
+                "is_triple_captain": false
+              },
+              {
+                "id": "18",
+                "name": "Pierre Gasly",
+                "tla": "GAS",
+                "team": "Alpine",
+                "price_at_race": 12.2,
+                "points": 25.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              }
+            ],
+            "constructors": [
+              {
+                "id": "26",
+                "name": "Haas F1 Team",
+                "price_at_race": 10.4,
+                "points": -8.0
+              },
+              {
+                "id": "28",
+                "name": "Mercedes",
+                "price_at_race": 30.8,
+                "points": 70.0
+              }
+            ]
+          }
+        },
+        {
+          "race_id": 7,
+          "race_name": "Spanish GP",
+          "points_gained": 129.0,
+          "total_points": 1286.0,
+          "rank_in_league": 8,
+          "budget": 104.2,
+          "team_value": 101.0,
+          "active_chip": null,
+          "team": {
+            "drivers": [
+              {
+                "id": "11031",
+                "name": "Oliver Bearman",
+                "tla": "BEA",
+                "team": "Haas F1 Team",
+                "price_at_race": 8.2,
+                "points": 7.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "114",
+                "name": "Liam Lawson",
+                "tla": "LAW",
+                "team": "Racing Bulls",
+                "price_at_race": 8.1,
+                "points": 9.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "124",
+                "name": "George Russell",
+                "tla": "RUS",
+                "team": "Mercedes",
+                "price_at_race": 28.2,
+                "points": 56.0,
+                "is_captain": true,
+                "is_triple_captain": false
+              },
+              {
+                "id": "18",
+                "name": "Pierre Gasly",
+                "tla": "GAS",
+                "team": "Alpine",
+                "price_at_race": 11.6,
+                "points": 17.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "111",
+                "name": "Nico Hulkenberg",
+                "tla": "HUL",
+                "team": "Audi",
+                "price_at_race": 3.2,
+                "points": -15.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              }
+            ],
+            "constructors": [
+              {
+                "id": "26",
+                "name": "Haas F1 Team",
+                "price_at_race": 10.6,
+                "points": 16.0
+              },
+              {
+                "id": "28",
+                "name": "Mercedes",
+                "price_at_race": 31.1,
+                "points": 39.0
+              }
+            ]
+          }
+        },
+        {
+          "race_id": 8,
+          "race_name": "Austrian GP",
+          "points_gained": 190.0,
+          "total_points": 1476.0,
+          "rank_in_league": 7,
+          "budget": 104.4,
+          "team_value": 104.1,
+          "active_chip": "autopilot",
+          "team": {
+            "drivers": [
+              {
+                "id": "111",
+                "name": "Nico Hulkenberg",
+                "tla": "HUL",
+                "team": "Audi",
+                "price_at_race": 3.0,
+                "points": 5.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "11149",
+                "name": "Arvid Lindblad",
+                "tla": "LIN",
+                "team": "Racing Bulls",
+                "price_at_race": 5.6,
+                "points": 6.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "11161",
+                "name": "Kimi Antonelli",
+                "tla": "ANT",
+                "team": "Mercedes",
+                "price_at_race": 25.3,
+                "points": 70.0,
+                "is_captain": true,
+                "is_triple_captain": false
+              },
+              {
+                "id": "13",
+                "name": "Valtteri Bottas",
+                "tla": "BOT",
+                "team": "Cadillac",
+                "price_at_race": 3.3,
+                "points": -17.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "1982",
+                "name": "Oscar Piastri",
+                "tla": "PIA",
+                "team": "McLaren",
+                "price_at_race": 25.0,
+                "points": 23.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              }
+            ],
+            "constructors": [
+              {
+                "id": "2636",
+                "name": "Racing Bulls",
+                "price_at_race": 10.5,
+                "points": 38.0
+              },
+              {
+                "id": "28",
+                "name": "Mercedes",
+                "price_at_race": 31.4,
+                "points": 85.0
+              }
+            ]
+          }
+        },
+        {
+          "race_id": 9,
+          "race_name": "British GP",
+          "points_gained": 307.0,
+          "total_points": 1783.0,
+          "rank_in_league": 8,
+          "budget": 105.6,
+          "team_value": 105.5,
+          "active_chip": "no_negative",
+          "team": {
+            "drivers": [
+              {
+                "id": "110",
+                "name": "Lewis Hamilton",
+                "tla": "HAM",
+                "team": "Ferrari",
+                "price_at_race": 24.5,
+                "points": 33.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "111",
+                "name": "Nico Hulkenberg",
+                "tla": "HUL",
+                "team": "Audi",
+                "price_at_race": 3.0,
+                "points": -7.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "11149",
+                "name": "Arvid Lindblad",
+                "tla": "LIN",
+                "team": "Racing Bulls",
+                "price_at_race": 6.2,
+                "points": 18.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "11161",
+                "name": "Kimi Antonelli",
+                "tla": "ANT",
+                "team": "Mercedes",
+                "price_at_race": 25.4,
+                "points": 46.0,
+                "is_captain": true,
+                "is_triple_captain": false
+              },
+              {
+                "id": "129",
+                "name": "Lance Stroll",
+                "tla": "STR",
+                "team": "Aston Martin",
+                "price_at_race": 3.6,
+                "points": 7.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              }
+            ],
+            "constructors": [
+              {
+                "id": "2636",
+                "name": "Racing Bulls",
+                "price_at_race": 11.1,
+                "points": 55.0
+              },
+              {
+                "id": "28",
+                "name": "Mercedes",
+                "price_at_race": 31.7,
+                "points": 92.0
+              }
+            ]
+          }
+        },
+        {
+          "race_id": 10,
+          "race_name": "Belgian GP",
+          "points_gained": 145.0,
+          "total_points": 1928.0,
+          "rank_in_league": 7,
+          "budget": 106.7,
+          "team_value": 106.6,
+          "active_chip": null,
+          "team": {
+            "drivers": [
+              {
+                "id": "110",
+                "name": "Lewis Hamilton",
+                "tla": "HAM",
+                "team": "Ferrari",
+                "price_at_race": 24.8,
+                "points": 22.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "111",
+                "name": "Nico Hulkenberg",
+                "tla": "HUL",
+                "team": "Audi",
+                "price_at_race": 3.0,
+                "points": 4.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "11149",
+                "name": "Arvid Lindblad",
+                "tla": "LIN",
+                "team": "Racing Bulls",
+                "price_at_race": 6.8,
+                "points": 5.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "11161",
+                "name": "Kimi Antonelli",
+                "tla": "ANT",
+                "team": "Mercedes",
+                "price_at_race": 25.3,
+                "points": 76.0,
+                "is_captain": true,
+                "is_triple_captain": false
+              },
+              {
+                "id": "129",
+                "name": "Lance Stroll",
+                "tla": "STR",
+                "team": "Aston Martin",
+                "price_at_race": 3.0,
+                "points": -19.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              }
+            ],
+            "constructors": [
+              {
+                "id": "2636",
+                "name": "Racing Bulls",
+                "price_at_race": 11.7,
+                "points": 15.0
+              },
+              {
+                "id": "28",
+                "name": "Mercedes",
+                "price_at_race": 32.0,
+                "points": 42.0
+              }
+            ]
+          }
+        },
+        {
+          "race_id": 11,
+          "race_name": "Hungarian GP",
+          "points_gained": 174.0,
+          "total_points": 2102.0,
+          "rank_in_league": 8,
+          "budget": 108.6,
+          "team_value": 103.8,
+          "active_chip": "wildcard",
+          "team": {
+            "drivers": [
+              {
+                "id": "110",
+                "name": "Lewis Hamilton",
+                "tla": "HAM",
+                "team": "Ferrari",
+                "price_at_race": 24.9,
+                "points": 25.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "111",
+                "name": "Nico Hulkenberg",
+                "tla": "HUL",
+                "team": "Audi",
+                "price_at_race": 3.0,
+                "points": 9.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "11149",
+                "name": "Arvid Lindblad",
+                "tla": "LIN",
+                "team": "Racing Bulls",
+                "price_at_race": 7.4,
+                "points": 4.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "11161",
+                "name": "Kimi Antonelli",
+                "tla": "ANT",
+                "team": "Mercedes",
+                "price_at_race": 25.6,
+                "points": 56.0,
+                "is_captain": true,
+                "is_triple_captain": false
+              },
+              {
+                "id": "121",
+                "name": "Sergio Perez",
+                "tla": "PER",
+                "team": "Cadillac",
+                "price_at_race": 4.4,
+                "points": -20.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              }
+            ],
+            "constructors": [
+              {
+                "id": "2640",
+                "name": "Audi",
+                "price_at_race": 6.2,
+                "points": 29.0
+              },
+              {
+                "id": "28",
+                "name": "Mercedes",
+                "price_at_race": 32.3,
+                "points": 71.0
+              }
+            ]
+          }
+        },
+        {
+          "race_id": 12,
+          "race_name": "Dutch GP",
+          "points_gained": 0,
+          "total_points": 2102.0,
+          "rank_in_league": 8,
+          "budget": 109.7,
+          "team_value": 104.9,
+          "active_chip": "wildcard",
           "team": {
             "drivers": [],
             "constructors": []
@@ -6520,10 +7148,10 @@
       "guid": "0f31c81e-1657-11f1-9cc9-fd679866b291-0-181836761",
       "player_name": "Austin Julsen",
       "team_name": "Gamblersfallacy",
-      "total_points": 1644,
+      "total_points": 1734,
       "rank": 9,
-      "current_budget": 97.7,
-      "current_team_value": 96.7,
+      "current_budget": 97.0,
+      "current_team_value": 96.0,
       "chips_used": [],
       "history": [
         {
@@ -7309,11 +7937,89 @@
         {
           "race_id": 11,
           "race_name": "Hungarian GP",
-          "points_gained": 0,
-          "total_points": 1644.0,
+          "points_gained": 90.0,
+          "total_points": 1734.0,
           "rank_in_league": 9,
           "budget": 97.7,
           "team_value": 96.7,
+          "active_chip": null,
+          "team": {
+            "drivers": [
+              {
+                "id": "11161",
+                "name": "Kimi Antonelli",
+                "tla": "ANT",
+                "team": "Mercedes",
+                "price_at_race": 25.6,
+                "points": 28.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "115",
+                "name": "Charles Leclerc",
+                "tla": "LEC",
+                "team": "Ferrari",
+                "price_at_race": 23.6,
+                "points": 62.0,
+                "is_captain": true,
+                "is_triple_captain": false
+              },
+              {
+                "id": "121",
+                "name": "Sergio Perez",
+                "tla": "PER",
+                "team": "Cadillac",
+                "price_at_race": 4.4,
+                "points": -20.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "125",
+                "name": "Carlos Sainz",
+                "tla": "SAI",
+                "team": "Williams",
+                "price_at_race": 10.2,
+                "points": 2.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              },
+              {
+                "id": "13",
+                "name": "Valtteri Bottas",
+                "tla": "BOT",
+                "team": "Cadillac",
+                "price_at_race": 3.0,
+                "points": -16.0,
+                "is_captain": false,
+                "is_triple_captain": false
+              }
+            ],
+            "constructors": [
+              {
+                "id": "25",
+                "name": "Ferrari",
+                "price_at_race": 26.3,
+                "points": 71.0
+              },
+              {
+                "id": "2641",
+                "name": "Cadillac",
+                "price_at_race": 3.6,
+                "points": -37.0
+              }
+            ]
+          }
+        },
+        {
+          "race_id": 12,
+          "race_name": "Dutch GP",
+          "points_gained": 0,
+          "total_points": 1734.0,
+          "rank_in_league": 9,
+          "budget": 97.0,
+          "team_value": 96.0,
           "active_chip": null,
           "team": {
             "drivers": [],
@@ -9326,22 +10032,222 @@
     },
     "11": {
       "18": {
-        "points": 0.0,
+        "points": 6.0,
         "name": "Pierre Gasly",
         "tla": "GAS",
         "price": 12.8
       },
       "11059": {
-        "points": 0.0,
+        "points": 3.0,
         "name": "Franco Colapinto",
         "tla": "COL",
         "price": 11.0
       },
       "12": {
-        "points": 0.0,
+        "points": 10.0,
         "name": "Fernando Alonso",
         "tla": "ALO",
         "price": 5.6
+      },
+      "129": {
+        "points": 15.0,
+        "name": "Lance Stroll",
+        "tla": "STR",
+        "price": 3.0
+      },
+      "11051": {
+        "points": 10.0,
+        "name": "Gabriel Bortoleto",
+        "tla": "BOR",
+        "price": 7.2
+      },
+      "111": {
+        "points": 9.0,
+        "name": "Nico Hulkenberg",
+        "tla": "HUL",
+        "price": 3.0
+      },
+      "121": {
+        "points": -20.0,
+        "name": "Sergio Perez",
+        "tla": "PER",
+        "price": 4.4
+      },
+      "13": {
+        "points": -16.0,
+        "name": "Valtteri Bottas",
+        "tla": "BOT",
+        "price": 3.0
+      },
+      "110": {
+        "points": 25.0,
+        "name": "Lewis Hamilton",
+        "tla": "HAM",
+        "price": 24.9
+      },
+      "115": {
+        "points": 31.0,
+        "name": "Charles Leclerc",
+        "tla": "LEC",
+        "price": 23.6
+      },
+      "118": {
+        "points": 4.0,
+        "name": "Esteban Ocon",
+        "tla": "OCO",
+        "price": 10.5
+      },
+      "11031": {
+        "points": 3.0,
+        "name": "Oliver Bearman",
+        "tla": "BEA",
+        "price": 7.4
+      },
+      "117": {
+        "points": 37.0,
+        "name": "Lando Norris",
+        "tla": "NOR",
+        "price": 25.8
+      },
+      "1982": {
+        "points": -11.0,
+        "name": "Oscar Piastri",
+        "tla": "PIA",
+        "price": 24.7
+      },
+      "124": {
+        "points": 23.0,
+        "name": "George Russell",
+        "tla": "RUS",
+        "price": 28.0
+      },
+      "11161": {
+        "points": 28.0,
+        "name": "Kimi Antonelli",
+        "tla": "ANT",
+        "price": 25.6
+      },
+      "114": {
+        "points": 13.0,
+        "name": "Liam Lawson",
+        "tla": "LAW",
+        "price": 9.7
+      },
+      "11149": {
+        "points": 4.0,
+        "name": "Arvid Lindblad",
+        "tla": "LIN",
+        "price": 7.4
+      },
+      "131": {
+        "points": 39.0,
+        "name": "Max Verstappen",
+        "tla": "VER",
+        "price": 27.7
+      },
+      "11032": {
+        "points": 15.0,
+        "name": "Isack Hadjar",
+        "tla": "HAD",
+        "price": 13.9
+      },
+      "125": {
+        "points": 2.0,
+        "name": "Carlos Sainz",
+        "tla": "SAI",
+        "price": 10.2
+      },
+      "11": {
+        "points": 4.0,
+        "name": "Alexander Albon",
+        "tla": "ALB",
+        "price": 6.4
+      },
+      "28": {
+        "points": 71.0,
+        "name": "Mercedes",
+        "tla": "MER",
+        "price": 32.3
+      },
+      "27": {
+        "points": 38.0,
+        "name": "McLaren",
+        "tla": "MCL",
+        "price": 30.7
+      },
+      "29": {
+        "points": 59.0,
+        "name": "Red Bull Racing",
+        "tla": "RBR",
+        "price": 30.6
+      },
+      "25": {
+        "points": 71.0,
+        "name": "Ferrari",
+        "tla": "FER",
+        "price": 26.3
+      },
+      "23": {
+        "points": 17.0,
+        "name": "Alpine",
+        "tla": "ALP",
+        "price": 18.5
+      },
+      "210": {
+        "points": 10.0,
+        "name": "Williams",
+        "tla": "WIL",
+        "price": 13.2
+      },
+      "2636": {
+        "points": 47.0,
+        "name": "Racing Bulls",
+        "tla": "RBS",
+        "price": 12.3
+      },
+      "26": {
+        "points": 10.0,
+        "name": "Haas F1 Team",
+        "tla": "HAA",
+        "price": 11.4
+      },
+      "2640": {
+        "points": 29.0,
+        "name": "Audi",
+        "tla": "AUD",
+        "price": 6.2
+      },
+      "24": {
+        "points": 36.0,
+        "name": "Aston Martin",
+        "tla": "AST",
+        "price": 5.1
+      },
+      "2641": {
+        "points": -37.0,
+        "name": "Cadillac",
+        "tla": "CAD",
+        "price": 3.6
+      }
+    },
+    "12": {
+      "18": {
+        "points": 0.0,
+        "name": "Pierre Gasly",
+        "tla": "GAS",
+        "price": 13.0
+      },
+      "11059": {
+        "points": 0.0,
+        "name": "Franco Colapinto",
+        "tla": "COL",
+        "price": 11.2
+      },
+      "12": {
+        "points": 0.0,
+        "name": "Fernando Alonso",
+        "tla": "ALO",
+        "price": 6.2
       },
       "129": {
         "points": 0.0,
@@ -9353,7 +10259,7 @@
         "points": 0.0,
         "name": "Gabriel Bortoleto",
         "tla": "BOR",
-        "price": 7.2
+        "price": 7.8
       },
       "111": {
         "points": 0.0,
@@ -9365,7 +10271,7 @@
         "points": 0.0,
         "name": "Sergio Perez",
         "tla": "PER",
-        "price": 4.4
+        "price": 3.8
       },
       "13": {
         "points": 0.0,
@@ -9377,151 +10283,151 @@
         "points": 0.0,
         "name": "Lewis Hamilton",
         "tla": "HAM",
-        "price": 24.9
+        "price": 25.0
       },
       "115": {
         "points": 0.0,
         "name": "Charles Leclerc",
         "tla": "LEC",
-        "price": 23.6
+        "price": 23.9
       },
       "118": {
         "points": 0.0,
         "name": "Esteban Ocon",
         "tla": "OCO",
-        "price": 10.5
+        "price": 10.7
       },
       "11031": {
         "points": 0.0,
         "name": "Oliver Bearman",
         "tla": "BEA",
-        "price": 7.4
+        "price": 7.6
       },
       "117": {
         "points": 0.0,
         "name": "Lando Norris",
         "tla": "NOR",
-        "price": 25.8
+        "price": 26.1
       },
       "1982": {
         "points": 0.0,
         "name": "Oscar Piastri",
         "tla": "PIA",
-        "price": 24.7
+        "price": 24.4
       },
       "124": {
         "points": 0.0,
         "name": "George Russell",
         "tla": "RUS",
-        "price": 28.0
+        "price": 27.9
       },
       "11161": {
         "points": 0.0,
         "name": "Kimi Antonelli",
         "tla": "ANT",
-        "price": 25.6
+        "price": 25.7
       },
       "114": {
         "points": 0.0,
         "name": "Liam Lawson",
         "tla": "LAW",
-        "price": 9.7
+        "price": 10.3
       },
       "11149": {
         "points": 0.0,
         "name": "Arvid Lindblad",
         "tla": "LIN",
-        "price": 7.4
+        "price": 8.0
       },
       "131": {
         "points": 0.0,
         "name": "Max Verstappen",
         "tla": "VER",
-        "price": 27.7
+        "price": 27.6
       },
       "11032": {
         "points": 0.0,
         "name": "Isack Hadjar",
         "tla": "HAD",
-        "price": 13.9
+        "price": 14.5
       },
       "125": {
         "points": 0.0,
         "name": "Carlos Sainz",
         "tla": "SAI",
-        "price": 10.2
+        "price": 10.0
       },
       "11": {
         "points": 0.0,
         "name": "Alexander Albon",
         "tla": "ALB",
-        "price": 6.4
+        "price": 5.8
       },
       "28": {
         "points": 0.0,
         "name": "Mercedes",
         "tla": "MER",
-        "price": 32.3
+        "price": 32.6
       },
       "27": {
         "points": 0.0,
         "name": "McLaren",
         "tla": "MCL",
-        "price": 30.7
+        "price": 31.0
       },
       "29": {
         "points": 0.0,
         "name": "Red Bull Racing",
         "tla": "RBR",
-        "price": 30.6
+        "price": 30.9
       },
       "25": {
         "points": 0.0,
         "name": "Ferrari",
         "tla": "FER",
-        "price": 26.3
+        "price": 26.6
       },
       "23": {
         "points": 0.0,
         "name": "Alpine",
         "tla": "ALP",
-        "price": 18.5
+        "price": 18.8
       },
       "210": {
         "points": 0.0,
         "name": "Williams",
         "tla": "WIL",
-        "price": 13.2
+        "price": 13.0
       },
       "2636": {
         "points": 0.0,
         "name": "Racing Bulls",
         "tla": "RBS",
-        "price": 12.3
+        "price": 12.9
       },
       "26": {
         "points": 0.0,
         "name": "Haas F1 Team",
         "tla": "HAA",
-        "price": 11.4
+        "price": 12.0
       },
       "2640": {
         "points": 0.0,
         "name": "Audi",
         "tla": "AUD",
-        "price": 6.2
+        "price": 6.8
       },
       "24": {
         "points": 0.0,
         "name": "Aston Martin",
         "tla": "AST",
-        "price": 5.1
+        "price": 5.7
       },
       "2641": {
         "points": 0.0,
         "name": "Cadillac",
         "tla": "CAD",
-        "price": 3.6
+        "price": 3.0
       }
     }
   }
