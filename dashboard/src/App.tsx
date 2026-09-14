@@ -316,10 +316,8 @@ function App() {
   // Determine data per player depending on viewRaceId
   const processedPlayers = data.players.map(player => {
     if (viewRaceId === 'overall') {
-      const hasHistory = player.history.length > 1;
-      const latestRace = player.history[player.history.length - 1];
-      const prevRace = hasHistory ? player.history[player.history.length - 2] : null;
-      const budgetDiff = prevRace ? latestRace.budget - prevRace.budget : 0;
+      const latestRace = player.history.length > 0 ? player.history[player.history.length - 1] : null;
+      const budgetDiff = latestRace ? Number((player.current_budget - latestRace.budget).toFixed(1)) : 0;
 
       return {
         guid: player.guid,

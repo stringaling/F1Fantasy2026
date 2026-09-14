@@ -510,14 +510,14 @@ def scrape_f1_data():
         chips_used = []
         cumulative_points = 0.0
         
+        # Determine team number for this member
+        if m_guid.startswith(USER_GUID):
+            m_team_no = user_team_no_map.get(m_team_name.lower(), member.get("teamNo", 1))
+        else:
+            m_team_no = member.get("teamNo", 1)
+            
         # We loop from race 1 to max_race_id
         for r_id in range(1, max_race_id + 1):
-            # Endpoint routing: Use opponentteam for everyone (including token owner using their full league GUID)
-            if m_guid.startswith(USER_GUID):
-                m_team_no = user_team_no_map.get(m_team_name.lower(), 1)
-            else:
-                m_team_no = 1
-            
             team_url = f"{F1_BASE_URL}/services/user/opponentteam/opponentgamedayplayerteamget/1/{m_guid}/{m_team_no}/{r_id}/1"
             
             try:
@@ -642,6 +642,46 @@ def scrape_f1_data():
             except Exception as e:
                 print(f"  ⚠️ Error scraping race {r_id} for user {m_user_name}: {e}")
                 
+        # In F1 Fantasy, each completed race r_id records the team snapshot as of race lockout.
+        # The post-race price adjustments resulting from max_race_id take effect in max_race_id + 1.
+        # Fetch active upcoming round (max_race_id + 1) to retrieve the latest live budget and team value.
+        current_budget = history[-1]["budget"] if history else 100.0
+        current_team_value = history[-1]["team_value"] if history else 100.0
+        
+        next_r_id = max_race_id + 1
+        if next_r_id <= 24:
+            next_url = f"{F1_BASE_URL}/services/user/opponentteam/opponentgamedayplayerteamget/1/{m_guid}/{m_team_no}/{next_r_id}/1"
+            try:
+                time.sleep(0.2)
+                resp = session.get(next_url)
+                if resp.status_code == 200:
+                    team_val_json = resp.json().get("Data", {}).get("Value")
+                    if team_val_json and team_val_json.get("userTeam"):
+                        ut = team_val_json["userTeam"][0]
+                        ti = ut.get("team_info") or {}
+                        tb = ut.get("teambal")
+                        if tb is None:
+                            tb = ti.get("teamBal", 0.0)
+                        tv = ut.get("teamval")
+                        if tv is None:
+                            tv = ti.get("teamVal")
+                            
+                        tb = float(tb) if tb is not None else 0.0
+                        tv = float(tv) if tv is not None else None
+                        
+                        mtb = ti.get("maxTeambal")
+                        if mtb is not None:
+                            current_budget = round(float(mtb), 1)
+                        elif tv is not None:
+                            current_budget = round(tv + tb, 1)
+                            
+                        if tv is not None:
+                            current_team_value = round(tv, 1)
+                        elif mtb is not None:
+                            current_team_value = round(float(mtb) - tb, 1)
+            except Exception as e:
+                print(f"  ⚠️ Could not fetch active round {next_r_id} budget for {m_user_name}: {e}")
+                
         # Overall totals
         players_data.append({
             "guid": m_guid,
@@ -649,8 +689,8 @@ def scrape_f1_data():
             "team_name": m_team_name,
             "total_points": member["ovPoints"],
             "rank": member["rank"],
-            "current_budget": history[-1]["budget"] if history else 100.0,
-            "current_team_value": history[-1]["team_value"] if history else 100.0,
+            "current_budget": current_budget,
+            "current_team_value": current_team_value,
             "chips_used": chips_used,
             "history": history
         })
