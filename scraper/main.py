@@ -4,7 +4,7 @@ import urllib.parse
 import json
 import time
 import random
-from datetime import datetime
+from datetime import datetime, timezone
 import requests
 from dotenv import load_dotenv
 
@@ -22,30 +22,72 @@ SEASON = os.getenv("F1_SEASON", "2026")
 OUTPUT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "dashboard", "public"))
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "data.json")
 
-# F1 Race Names mapping (2026 Schedule placeholder / standard names)
-RACE_NAMES = {
+# F1 Race Names mapping (2026 Official Schedule - 23 Races)
+DEFAULT_RACE_NAMES = {
     1: "Australian GP",
     2: "Chinese GP",
     3: "Japanese GP",
     4: "Miami GP",
     5: "Canadian GP",
     6: "Monaco GP",
-    7: "Spanish GP",
+    7: "Barcelona GP",
     8: "Austrian GP",
     9: "British GP",
     10: "Belgian GP",
     11: "Hungarian GP",
     12: "Dutch GP",
     13: "Italian GP",
-    14: "Azerbaijan GP",
-    15: "Singapore GP",
-    16: "United States GP",
-    17: "Mexico City GP",
-    18: "São Paulo GP",
-    19: "Las Vegas GP",
-    20: "Qatar GP",
-    21: "Abu Dhabi GP"
+    14: "Spanish GP",
+    15: "Azerbaijan GP",
+    16: "Bahrain GP",
+    17: "Singapore GP",
+    18: "United States GP",
+    19: "Mexico City GP",
+    20: "São Paulo GP",
+    21: "Las Vegas GP",
+    22: "Qatar GP",
+    23: "Abu Dhabi GP"
 }
+
+def fetch_race_schedule(session=None):
+    """
+    Fetches the official race schedule dynamically from the F1 Fantasy API:
+    https://fantasy.formula1.com/feeds/schedule/raceday_en.json
+    Returns a tuple of:
+      - race_names: dict mapping GamedayId (int) -> clean GP name (e.g. 'Spanish GP')
+      - completed_race_ids: list of GamedayIds (int) marked as completed (MatchStatus == 4 or GDStatus == 4)
+    """
+    client = session or requests
+    schedule_url = f"{F1_BASE_URL}/feeds/schedule/raceday_en.json"
+    race_names = dict(DEFAULT_RACE_NAMES)
+    completed_race_ids = []
+    
+    try:
+        resp = client.get(schedule_url, timeout=10)
+        resp.raise_for_status()
+        val = resp.json().get("Data", {}).get("Value", [])
+        for item in val:
+            gid = item.get("GamedayId")
+            if gid is None:
+                continue
+            gid = int(gid)
+            meeting_name = item.get("MeetingName")
+            if meeting_name:
+                clean_name = meeting_name.replace(" Grand Prix", " GP").strip()
+                race_names[gid] = clean_name
+            
+            # Race sessions determine if the round is completed
+            if item.get("SessionType") == "Race":
+                # GDStatus == 4 or MatchStatus == "4" indicates completed matchday
+                if str(item.get("MatchStatus")) == "4" or item.get("GDStatus") == 4:
+                    if gid not in completed_race_ids:
+                        completed_race_ids.append(gid)
+        completed_race_ids.sort()
+        print(f"📅 Loaded official schedule ({len(race_names)} rounds). Completed from schedule: {completed_race_ids}")
+    except Exception as e:
+        print(f"⚠️ Could not load dynamic schedule feed ({e}). Using default 2026 calendar.")
+        
+    return race_names, completed_race_ids
 def generate_mock_data():
     """Generates premium mock data for development and testing."""
     print("⚠️ Credentials not configured or invalid in scraper/.env.")
@@ -252,7 +294,7 @@ def generate_mock_data():
             
             history.append({
                 "race_id": race_id,
-                "race_name": RACE_NAMES[race_id],
+                "race_name": DEFAULT_RACE_NAMES.get(race_id, f"Race {race_id}"),
                 "points_gained": float(points_gained),
                 "total_points": float(cumulative_points),
                 "rank_in_league": 1, # Will calculate ranks later
@@ -300,7 +342,7 @@ def generate_mock_data():
         
     # Compile full output structure
     output_data = {
-        "last_updated": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "last_updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "league_name": "Antigravity F1 Cup",
         "league_id": LEAGUE_ID,
         "current_race_id": num_races,
@@ -334,6 +376,9 @@ def scrape_f1_data():
     }
     session.headers.update(headers)
     
+    # 0. Dynamically fetch the official race schedule
+    race_names, schedule_completed_ids = fetch_race_schedule(session)
+
     # 1. Fetch private league leaderboard
     # Endpoint: https://fantasy.formula1.com/services/user/leaderboard/{user_guid}/pvtleagueuserrankget/1/{league_id}/0/1/1/1000/
     leaderboard_url = f"{F1_BASE_URL}/services/user/leaderboard/{USER_GUID}/pvtleagueuserrankget/1/{LEAGUE_ID}/0/1/1/1000/"
@@ -361,16 +406,16 @@ def scrape_f1_data():
     gamedays_url = f"{F1_BASE_URL}/services/user/gameplay/{USER_GUID}/getusergamedaysv1/1"
     gameday_status = {}
     user_team_no_map = {}
+    max_race_id = 0
     try:
         resp = session.get(gamedays_url)
         resp.raise_for_status()
         gamedays_data = resp.json()["Data"]["Value"]
         
-        # Normally data is a list. Let's find max race ID from mddetails keys
         if isinstance(gamedays_data, list) and len(gamedays_data) > 0:
-            mddetails = gamedays_data[0]["mddetails"]
-            races_occurred = [int(k) for k in mddetails.keys()]
-            max_race_id = max(races_occurred)
+            mddetails = gamedays_data[0].get("mddetails", {})
+            prvmdid = gamedays_data[0].get("prvmdid")
+            
             for k, v in mddetails.items():
                 gameday_status[int(k)] = v.get("mds", 3)
             
@@ -380,23 +425,54 @@ def scrape_f1_data():
                 t_no = t.get("teamno")
                 if t_name and t_no is not None:
                     user_team_no_map[t_name.lower()] = int(t_no)
+            
+            # Note: mddetails keys include the active/upcoming round where pts is None.
+            # Only count rounds that are completed (prvmdid or pts is not None).
+            completed_from_mddetails = [
+                int(k) for k, v in mddetails.items()
+                if v.get("pts") is not None or (prvmdid and int(k) <= int(prvmdid))
+            ]
+            
+            if prvmdid and int(prvmdid) > 0:
+                max_race_id = int(prvmdid)
+            elif completed_from_mddetails:
+                max_race_id = max(completed_from_mddetails)
+            elif schedule_completed_ids:
+                max_race_id = max(schedule_completed_ids)
+            else:
+                max_race_id = 1
+        elif schedule_completed_ids:
+            max_race_id = max(schedule_completed_ids)
         else:
             max_race_id = 1
         
         print(f"🏎️ Current season has {max_race_id} completed races.")
     except Exception as e:
-        print(f"⚠️ Failed to query game days ({e}). Defaulting to checking feeds up to race 24...")
-        # fallback: ping driver feeds to see which ones are available
-        max_race_id = 0
-        for r_id in range(1, 25):
-            feed_url = f"{F1_BASE_URL}/feeds/drivers/{r_id}_en.json"
-            feed_resp = requests.head(feed_url)
-            if feed_resp.status_code == 200:
-                max_race_id = r_id
-                gameday_status[r_id] = 3  # Assume completed
-            else:
-                break
-        print(f"🏎️ Detected {max_race_id} completed races via driver feed pings.")
+        print(f"⚠️ Failed to query game days ({e}). Checking schedule feed & driver feeds...")
+        if schedule_completed_ids:
+            max_race_id = max(schedule_completed_ids)
+            for r_id in range(1, max_race_id + 1):
+                gameday_status[r_id] = 3
+        else:
+            # fallback: ping driver feeds and verify actual points are recorded
+            max_race_id = 0
+            for r_id in range(1, 25):
+                feed_url = f"{F1_BASE_URL}/feeds/drivers/{r_id}_en.json"
+                try:
+                    feed_resp = requests.get(feed_url, timeout=5)
+                    if feed_resp.status_code == 200:
+                        val_list = feed_resp.json().get("Data", {}).get("Value", [])
+                        has_points = any(float(d.get("GamedayPoints") or 0) > 0 for d in val_list)
+                        if has_points:
+                            max_race_id = r_id
+                            gameday_status[r_id] = 3
+                        else:
+                            break
+                    else:
+                        break
+                except Exception:
+                    break
+        print(f"🏎️ Detected {max_race_id} completed races via fallback checks.")
 
         
     if max_race_id == 0:
@@ -550,7 +626,7 @@ def scrape_f1_data():
                 
                 history.append({
                     "race_id": r_id,
-                    "race_name": RACE_NAMES.get(r_id, f"Race {r_id}"),
+                    "race_name": race_names.get(r_id, DEFAULT_RACE_NAMES.get(r_id, f"Race {r_id}")),
                     "points_gained": points_gained,
                     "total_points": cumulative_points,
                     "rank_in_league": 0, # Will set later
@@ -608,7 +684,7 @@ def scrape_f1_data():
 
     # Compile output data structure
     output_data = {
-        "last_updated": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "last_updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "league_name": league_name,
         "league_id": LEAGUE_ID,
         "current_race_id": max_race_id,
