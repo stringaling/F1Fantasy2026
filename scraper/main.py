@@ -495,6 +495,15 @@ def scrape_f1_data():
             # Ensure we have at least an empty dict to avoid KeyError
             race_feeds[r_id] = {}
             
+    # Next round's feed carries the post-race prices used to compute live budgets
+    next_feed = {}
+    try:
+        r = requests.get(f"{F1_BASE_URL}/feeds/drivers/{max_race_id + 1}_en.json")
+        r.raise_for_status()
+        next_feed = {item["PlayerId"]: item for item in r.json()["Data"]["Value"]}
+    except Exception as e:
+        print(f"⚠️ Failed to get feed for round {max_race_id + 1} (live prices): {e}")
+
     # 4. Fetch the team details for each league member across all completed races
     players_data = []
     
@@ -509,7 +518,8 @@ def scrape_f1_data():
         history = []
         chips_used = []
         cumulative_points = 0.0
-        
+        roster_ids_by_race = {}
+
         # Determine team number for this member
         if m_guid.startswith(USER_GUID):
             m_team_no = user_team_no_map.get(m_team_name.lower(), member.get("teamNo", 1))
@@ -534,6 +544,11 @@ def scrape_f1_data():
                     
                 user_team = team_payload["userTeam"][0]
                 team_info = user_team.get("team_info")
+
+                # teamval is priced on the pre-Final-Fix team, so drop the replacement (isfinal == 1)
+                roster_ids_by_race[r_id] = [
+                    p["id"] for p in user_team.get("playerid") or [] if p.get("isfinal") != 1
+                ]
                 
                 # Extract budget and value details with defensive fallbacks
                 teambal = user_team.get("teambal")
@@ -647,7 +662,8 @@ def scrape_f1_data():
         # Fetch active upcoming round (max_race_id + 1) to retrieve the latest live budget and team value.
         current_budget = history[-1]["budget"] if history else 100.0
         current_team_value = history[-1]["team_value"] if history else 100.0
-        
+        live_budget_found = False
+
         next_r_id = max_race_id + 1
         if next_r_id <= 24:
             next_url = f"{F1_BASE_URL}/services/user/opponentteam/opponentgamedayplayerteamget/1/{m_guid}/{m_team_no}/{next_r_id}/1"
@@ -679,9 +695,22 @@ def scrape_f1_data():
                             current_team_value = round(tv, 1)
                         elif mtb is not None:
                             current_team_value = round(float(mtb) - tb, 1)
+                        live_budget_found = True
             except Exception as e:
                 print(f"  ⚠️ Could not fetch active round {next_r_id} budget for {m_user_name}: {e}")
-                
+
+        # Opponent teams for an unlocked round come back as null, leaving the stale lockout snapshot.
+        # Feed N holds prices going into round N, so reprice the carried-forward roster with the
+        # next round's feed and add back the bank balance. Limitless teams revert, so use the
+        # latest non-Limitless round as the reference.
+        if not live_budget_found and next_feed:
+            ref = next((h for h in reversed(history) if h["active_chip"] != "limitless"), None)
+            roster_ids = roster_ids_by_race.get(ref["race_id"]) if ref else None
+            if roster_ids and all(p_id in next_feed for p_id in roster_ids):
+                bank = ref["budget"] - ref["team_value"]
+                current_team_value = round(sum(float(next_feed[p_id].get("Value") or 0.0) for p_id in roster_ids), 1)
+                current_budget = round(current_team_value + bank, 1)
+
         # Overall totals
         players_data.append({
             "guid": m_guid,
