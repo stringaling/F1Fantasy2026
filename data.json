@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-10-11T17:41:14Z",
+  "last_updated": "2026-10-11T17:58:29Z",
   "league_name": "Formula 42/51",
   "league_id": "6360509",
   "current_race_id": 17,
@@ -10,8 +10,8 @@
       "team_name": "RbRVengance",
       "total_points": 4372,
       "rank": 1,
-      "current_budget": 130.5,
-      "current_team_value": 130.0,
+      "current_budget": 133.3,
+      "current_team_value": 132.8,
       "chips_used": [
         {
           "chip": "limitless",
@@ -1365,8 +1365,8 @@
       "team_name": "Kimi all the points",
       "total_points": 4302,
       "rank": 2,
-      "current_budget": 132.1,
-      "current_team_value": 129.4,
+      "current_budget": 133.7,
+      "current_team_value": 131.0,
       "chips_used": [
         {
           "chip": "limitless",
@@ -2716,8 +2716,8 @@
       "team_name": "First Corner Mayhem",
       "total_points": 3916,
       "rank": 3,
-      "current_budget": 128.4,
-      "current_team_value": 128.4,
+      "current_budget": 129.5,
+      "current_team_value": 129.5,
       "chips_used": [
         {
           "chip": "limitless",
@@ -4077,8 +4077,8 @@
       "team_name": "Stroll to first place",
       "total_points": 3907,
       "rank": 4,
-      "current_budget": 121.0,
-      "current_team_value": 120.6,
+      "current_budget": 122.0,
+      "current_team_value": 121.6,
       "chips_used": [
         {
           "chip": "limitless",
@@ -5420,8 +5420,8 @@
       "team_name": "Gonchpulls",
       "total_points": 3662,
       "rank": 5,
-      "current_budget": 121.7,
-      "current_team_value": 121.2,
+      "current_budget": 123.3,
+      "current_team_value": 122.8,
       "chips_used": [
         {
           "chip": "autopilot",
@@ -6775,8 +6775,8 @@
       "team_name": "TBFlyers",
       "total_points": 3596,
       "rank": 6,
-      "current_budget": 119.7,
-      "current_team_value": 119.2,
+      "current_budget": 122.5,
+      "current_team_value": 122.0,
       "chips_used": [
         {
           "chip": "autopilot",
@@ -8130,8 +8130,8 @@
       "team_name": "Stroll down mainstreet",
       "total_points": 3538,
       "rank": 7,
-      "current_budget": 113.8,
-      "current_team_value": 111.5,
+      "current_budget": 115.5,
+      "current_team_value": 113.2,
       "chips_used": [
         {
           "chip": "limitless",
@@ -9473,8 +9473,8 @@
       "team_name": "Papaya Drules",
       "total_points": 3091,
       "rank": 8,
-      "current_budget": 113.7,
-      "current_team_value": 113.7,
+      "current_budget": 116.0,
+      "current_team_value": 116.0,
       "chips_used": [
         {
           "chip": "no_negative",
@@ -10816,8 +10816,8 @@
       "team_name": "Gamblersfallacy",
       "total_points": 2590,
       "rank": 9,
-      "current_budget": 96.5,
-      "current_team_value": 95.5,
+      "current_budget": 98.4,
+      "current_team_value": 97.4,
       "chips_used": [],
       "history": [
         {
